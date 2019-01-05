@@ -5,174 +5,177 @@ using AControl = Avalonia.Controls.Control;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class SearchBarRenderer : ViewRenderer<SearchBar, FormsTextBox>
-	{
-		const string DefaultPlaceholder = "Search";
-		Brush _defaultPlaceholderColorBrush;
-		Brush _defaultTextColorBrush;
-		bool _fontApplied;
+    public class SearchBarRenderer : ViewRenderer<SearchBar, FormsTextBox>
+    {
+        const string DefaultPlaceholder = "Search";
+        Brush _defaultPlaceholderColorBrush;
+        Brush _defaultTextColorBrush;
+        bool _fontApplied;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<SearchBar> e)
-		{
-			if (e.NewElement != null)
-			{
-				if (Control == null) // construct and SetNativeControl and suscribe control event
-				{
-					//var scope = new InputScope();
-					//var name = new InputScopeName();
-					//name.NameValue = InputScopeNameValue.;
-					//scope.Names.Add(name);
-					
-					//SetNativeControl(new FormsTextBox { InputScope = scope });
-					Control.KeyUp += PhoneTextBoxOnKeyUp;
-					//Control.TextChanged += PhoneTextBoxOnTextChanged;
-				}
+        protected override void OnElementChanged(ElementChangedEventArgs<SearchBar> e)
+        {
+            if (e.NewElement != null)
+            {
+                if (Control == null) // construct and SetNativeControl and suscribe control event
+                {
+                    //var scope = new InputScope();
+                    //var name = new InputScopeName();
+                    //name.NameValue = InputScopeNameValue.;
+                    //scope.Names.Add(name);
 
-				// Update control property 
-				UpdateText();
-				UpdatePlaceholder();
-				UpdateAlignment();
-				UpdateFont();
-				UpdatePlaceholderColor();
-				UpdateTextColor();
-			}
+                    SetNativeControl(new FormsTextBox
+                    {
+                        //InputScope = scope
+                    });
+                    Control.KeyUp += PhoneTextBoxOnKeyUp;
+                    //Control.TextChanged += PhoneTextBoxOnTextChanged;
+                }
 
-			base.OnElementChanged(e);
-		}
+                // Update control property 
+                UpdateText();
+                UpdatePlaceholder();
+                UpdateAlignment();
+                UpdateFont();
+                UpdatePlaceholderColor();
+                UpdateTextColor();
+            }
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
+            base.OnElementChanged(e);
+        }
 
-			if (e.PropertyName == SearchBar.TextProperty.PropertyName)
-				UpdateText();
-			else if (e.PropertyName == SearchBar.PlaceholderProperty.PropertyName)
-				UpdatePlaceholder();
-			else if (e.PropertyName == SearchBar.FontAttributesProperty.PropertyName)
-				UpdateFont();
-			else if (e.PropertyName == SearchBar.FontFamilyProperty.PropertyName)
-				UpdateFont();
-			else if (e.PropertyName == SearchBar.FontSizeProperty.PropertyName)
-				UpdateFont();
-			else if (e.PropertyName == SearchBar.HorizontalTextAlignmentProperty.PropertyName)
-				UpdateAlignment();
-			else if (e.PropertyName == SearchBar.PlaceholderColorProperty.PropertyName)
-				UpdatePlaceholderColor();
-			else if (e.PropertyName == SearchBar.TextColorProperty.PropertyName)
-				UpdateTextColor();
-		}
-		
-		void PhoneTextBoxOnKeyUp(object sender, KeyEventArgs keyEventArgs)
-		{
-			if (keyEventArgs.Key == Key.Enter)
-				((ISearchBarController)Element).OnSearchButtonPressed();
-		}
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
 
-		//void PhoneTextBoxOnTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs textChangedEventArgs)
-		//{
-		//	((IElementController)Element).SetValueFromRenderer(SearchBar.TextProperty, Control.Text);
-		//}
+            if (e.PropertyName == SearchBar.TextProperty.PropertyName)
+                UpdateText();
+            else if (e.PropertyName == SearchBar.PlaceholderProperty.PropertyName)
+                UpdatePlaceholder();
+            else if (e.PropertyName == SearchBar.FontAttributesProperty.PropertyName)
+                UpdateFont();
+            else if (e.PropertyName == SearchBar.FontFamilyProperty.PropertyName)
+                UpdateFont();
+            else if (e.PropertyName == SearchBar.FontSizeProperty.PropertyName)
+                UpdateFont();
+            else if (e.PropertyName == SearchBar.HorizontalTextAlignmentProperty.PropertyName)
+                UpdateAlignment();
+            else if (e.PropertyName == SearchBar.PlaceholderColorProperty.PropertyName)
+                UpdatePlaceholderColor();
+            else if (e.PropertyName == SearchBar.TextColorProperty.PropertyName)
+                UpdateTextColor();
+        }
 
-		void UpdateAlignment()
-		{
-			Control.TextAlignment = Element.HorizontalTextAlignment.ToNativeTextAlignment();
-		}
+        void PhoneTextBoxOnKeyUp(object sender, KeyEventArgs keyEventArgs)
+        {
+            if (keyEventArgs.Key == Key.Enter)
+                ((ISearchBarController)Element).OnSearchButtonPressed();
+        }
 
-		void UpdateFont()
-		{
-			if (Control == null)
-				return;
+        //void PhoneTextBoxOnTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs textChangedEventArgs)
+        //{
+        //	((IElementController)Element).SetValueFromRenderer(SearchBar.TextProperty, Control.Text);
+        //}
 
-			SearchBar searchbar = Element;
+        void UpdateAlignment()
+        {
+            Control.TextAlignment = Element.HorizontalTextAlignment.ToNativeTextAlignment();
+        }
 
-			if (searchbar == null)
-				return;
+        void UpdateFont()
+        {
+            if (Control == null)
+                return;
 
-			bool searchbarIsDefault = searchbar.FontFamily == null && searchbar.FontSize == Device.GetNamedSize(NamedSize.Default, typeof(SearchBar), true) && searchbar.FontAttributes == FontAttributes.None;
+            SearchBar searchbar = Element;
 
-			if (searchbarIsDefault && !_fontApplied)
-				return;
+            if (searchbar == null)
+                return;
 
-			if (searchbarIsDefault)
-			{
-				//Control.ClearValue(AControl.FontStyleProperty);
-				//Control.ClearValue(AControl.FontSizeProperty);
-				//Control.ClearValue(AControl.FontFamilyProperty);
-				//Control.ClearValue(AControl.FontWeightProperty);
-				//Control.ClearValue(AControl.FontStretchProperty);
-			}
-			else
-				Control.ApplyFont(searchbar);
+            bool searchbarIsDefault = searchbar.FontFamily == null && searchbar.FontSize == Device.GetNamedSize(NamedSize.Default, typeof(SearchBar), true) && searchbar.FontAttributes == FontAttributes.None;
 
-			_fontApplied = true;
-		}
+            if (searchbarIsDefault && !_fontApplied)
+                return;
 
-		void UpdatePlaceholder()
-		{
-			//Control.PlaceholderText = Element.Placeholder ?? DefaultPlaceholder;
-		}
+            if (searchbarIsDefault)
+            {
+                //Control.ClearValue(AControl.FontStyleProperty);
+                //Control.ClearValue(AControl.FontSizeProperty);
+                //Control.ClearValue(AControl.FontFamilyProperty);
+                //Control.ClearValue(AControl.FontWeightProperty);
+                //Control.ClearValue(AControl.FontStretchProperty);
+            }
+            else
+                Control.ApplyFont(searchbar);
 
-		void UpdatePlaceholderColor()
-		{
-			Color placeholderColor = Element.PlaceholderColor;
+            _fontApplied = true;
+        }
 
-			//if (placeholderColor.IsDefault)
-			//{
-			//	if (_defaultPlaceholderColorBrush == null)
-			//	{
-			//		_defaultPlaceholderColorBrush = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue;
-			//	}
-			//	Control.PlaceholderForegroundBrush = _defaultPlaceholderColorBrush;
-			//	return;
-			//}
+        void UpdatePlaceholder()
+        {
+            //Control.PlaceholderText = Element.Placeholder ?? DefaultPlaceholder;
+        }
 
-			//if (_defaultPlaceholderColorBrush == null)
-			//	_defaultPlaceholderColorBrush = Control.PlaceholderForegroundBrush;
+        void UpdatePlaceholderColor()
+        {
+            Color placeholderColor = Element.PlaceholderColor;
 
-			//Control.PlaceholderForegroundBrush = placeholderColor.ToBrush();
-		}
+            //if (placeholderColor.IsDefault)
+            //{
+            //	if (_defaultPlaceholderColorBrush == null)
+            //	{
+            //		_defaultPlaceholderColorBrush = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue;
+            //	}
+            //	Control.PlaceholderForegroundBrush = _defaultPlaceholderColorBrush;
+            //	return;
+            //}
 
-		void UpdateText()
-		{
-			Control.Text = Element.Text ?? "";
-		}
+            //if (_defaultPlaceholderColorBrush == null)
+            //	_defaultPlaceholderColorBrush = Control.PlaceholderForegroundBrush;
 
-		void UpdateTextColor()
-		{
-			Color textColor = Element.TextColor;
+            //Control.PlaceholderForegroundBrush = placeholderColor.ToBrush();
+        }
 
-			if (textColor.IsDefault)
-			{
-				if (_defaultTextColorBrush == null)
-					return;
+        void UpdateText()
+        {
+            Control.Text = Element.Text ?? "";
+        }
 
-				Control.Foreground = _defaultTextColorBrush;
-			}
+        void UpdateTextColor()
+        {
+            Color textColor = Element.TextColor;
 
-			//if (_defaultTextColorBrush == null)
-			//	_defaultTextColorBrush = Control.Foreground;
+            if (textColor.IsDefault)
+            {
+                if (_defaultTextColorBrush == null)
+                    return;
 
-			Control.Foreground = textColor.ToBrush();
-		}
+                Control.Foreground = _defaultTextColorBrush;
+            }
 
-		bool _isDisposed;
+            //if (_defaultTextColorBrush == null)
+            //	_defaultTextColorBrush = Control.Foreground;
 
-		protected override void Dispose(bool disposing)
-		{
-			if (_isDisposed)
-				return;
+            Control.Foreground = textColor.ToBrush();
+        }
 
-			if (disposing)
-			{
-				if (Control != null)
-				{
-					Control.KeyUp -= PhoneTextBoxOnKeyUp;
-					//Control.TextChanged -= PhoneTextBoxOnTextChanged;
-				}
-			}
+        bool _isDisposed;
 
-			_isDisposed = true;
-			base.Dispose(disposing);
-		}
-	}
+        protected override void Dispose(bool disposing)
+        {
+            if (_isDisposed)
+                return;
+
+            if (disposing)
+            {
+                if (Control != null)
+                {
+                    Control.KeyUp -= PhoneTextBoxOnKeyUp;
+                    //Control.TextChanged -= PhoneTextBoxOnTextChanged;
+                }
+            }
+
+            _isDisposed = true;
+            base.Dispose(disposing);
+        }
+    }
 }

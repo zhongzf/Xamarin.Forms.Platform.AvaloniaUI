@@ -8,139 +8,141 @@ using Avalonia.Controls;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class FormsTimePicker : TextBox
-	{
+    public class FormsTimePicker : TextBox
+    {
         #region Properties
-        public static readonly AvaloniaProperty TimeProperty;// = AvaloniaProperty.Register("Time", typeof(TimeSpan?), typeof(FormsTimePicker), new PropertyMetadata(null, new PropertyChangedCallback(OnTimePropertyChanged)));
-		public TimeSpan? Time
-		{
-			get { return (TimeSpan?)GetValue(TimeProperty); }
-			set { SetValue(TimeProperty, value); }
-		}
+        public static readonly DirectProperty<FormsTimePicker, TimeSpan?> TimeProperty = AvaloniaProperty.RegisterDirect<FormsTimePicker, TimeSpan?>(nameof(Time), o => o.Time, (o, v) => o.Time = v);
+        private TimeSpan? _time;
+        public TimeSpan? Time
+        {
+            get { return _time; }
+            set { SetAndRaise(TimeProperty, ref _time, value); }
+        }
 
-        public static readonly AvaloniaProperty TimeFormatProperty;// = AvaloniaProperty.Register("TimeFormat", typeof(String), typeof(FormsTimePicker), new PropertyMetadata(@"hh\:mm", new PropertyChangedCallback(OnTimeFormatPropertyChanged)));
-		public String TimeFormat
-		{
-			get { return (String)GetValue(TimeFormatProperty); }
-			set { SetValue(TimeFormatProperty, value); }
-		}
-		#endregion
+        public static readonly DirectProperty<FormsTimePicker, string> TimeFormatProperty = AvaloniaProperty.RegisterDirect<FormsTimePicker, string>(nameof(TimeFormat), o => o.TimeFormat, (o, v) => o.TimeFormat = v);
+        private string _timeFormat;
+        public String TimeFormat
+        {
+            get { return _timeFormat; }
+            set { SetAndRaise(TimeFormatProperty, ref _timeFormat, value); }
+        }
+        #endregion
 
-		#region Events
-		public delegate void TimeChangedEventHandler(object sender, TimeChangedEventArgs e);
-		public event TimeChangedEventHandler TimeChanged;
-		#endregion
+        #region Events
+        public delegate void TimeChangedEventHandler(object sender, TimeChangedEventArgs e);
+        public event TimeChangedEventHandler TimeChanged;
+        #endregion
 
-		public FormsTimePicker()
-		{
+        public FormsTimePicker()
+        {
 
-		}
+        }
 
-		//public override void OnApplyTemplate()
-		//{
-		//	base.OnApplyTemplate();
-		//	SetText();
-		//}
+        //public override void OnApplyTemplate()
+        //{
+        //	base.OnApplyTemplate();
+        //	SetText();
+        //}
 
-		private void SetText()
-		{
-			if (Time == null)
-				Text = null;
-			else
-			{
-				var dateTime = new DateTime(Time.Value.Ticks);
-				
-				String text = dateTime.ToString(String.IsNullOrWhiteSpace(TimeFormat) ? @"hh\:mm" : TimeFormat.ToLower());
-				if (text.CompareTo(Text) != 0)
-					Text = text;
-			}
-		}
+        private void SetText()
+        {
+            if (Time == null)
+                Text = null;
+            else
+            {
+                var dateTime = new DateTime(Time.Value.Ticks);
 
-		private void SetTime()
-		{
-			DateTime dateTime = DateTime.MinValue;
-			String timeFormat = String.IsNullOrWhiteSpace(TimeFormat) ? @"hh\:mm" : TimeFormat.ToLower();
+                String text = dateTime.ToString(String.IsNullOrWhiteSpace(TimeFormat) ? @"hh\:mm" : TimeFormat.ToLower());
+                if (text.CompareTo(Text) != 0)
+                    Text = text;
+            }
+        }
 
-			if (DateTime.TryParseExact(Text, timeFormat, null, System.Globalization.DateTimeStyles.None, out dateTime))
-			{
-				if ((Time == null) || (Time != null && Time.Value.CompareTo(dateTime.TimeOfDay) != 0))
-				{
-					if (dateTime.TimeOfDay < TimeSpan.FromHours(24) && dateTime.TimeOfDay > TimeSpan.Zero)
-						Time = dateTime.TimeOfDay;
-					else
-						SetText();
-				}
-			}
-			else
-				SetText();
-		}
+        private void SetTime()
+        {
+            DateTime dateTime = DateTime.MinValue;
+            String timeFormat = String.IsNullOrWhiteSpace(TimeFormat) ? @"hh\:mm" : TimeFormat.ToLower();
 
-		#region Overrides
-		//protected override void OnLostFocus(RoutedEventArgs e)
-		//{
-		//	SetTime();
-		//	base.OnLostFocus(e);
-		//}
+            if (DateTime.TryParseExact(Text, timeFormat, null, System.Globalization.DateTimeStyles.None, out dateTime))
+            {
+                if ((Time == null) || (Time != null && Time.Value.CompareTo(dateTime.TimeOfDay) != 0))
+                {
+                    if (dateTime.TimeOfDay < TimeSpan.FromHours(24) && dateTime.TimeOfDay > TimeSpan.Zero)
+                        Time = dateTime.TimeOfDay;
+                    else
+                        SetText();
+                }
+            }
+            else
+                SetText();
+        }
 
-		//protected override void OnGotFocus(RoutedEventArgs e)
-		//{
-		//	base.OnGotFocus(e);
-		//}
-		#endregion
+        #region Overrides
+        //protected override void OnLostFocus(RoutedEventArgs e)
+        //{
+        //	SetTime();
+        //	base.OnLostFocus(e);
+        //}
 
-		#region Property Changes
-		private static void OnTimePropertyChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
-		{
-			FormsTimePicker element = d as FormsTimePicker;
-			if (element == null)
-				return;
+        //protected override void OnGotFocus(RoutedEventArgs e)
+        //{
+        //	base.OnGotFocus(e);
+        //}
+        #endregion
 
-			element.OnTimeChanged(e.OldValue as TimeSpan?, e.NewValue as TimeSpan?);
-		}
+        #region Property Changes
+        private static void OnTimePropertyChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
+        {
+            FormsTimePicker element = d as FormsTimePicker;
+            if (element == null)
+                return;
 
-		private void OnTimeChanged(TimeSpan? oldValue, TimeSpan? newValue)
-		{
-			SetText();
+            element.OnTimeChanged(e.OldValue as TimeSpan?, e.NewValue as TimeSpan?);
+        }
 
-			if (TimeChanged != null)
-				TimeChanged(this, new TimeChangedEventArgs(oldValue, newValue));
-		}
+        private void OnTimeChanged(TimeSpan? oldValue, TimeSpan? newValue)
+        {
+            SetText();
 
-		private static void OnTimeFormatPropertyChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
-		{
-			FormsTimePicker element = d as FormsTimePicker;
-			if (element == null)
-				return;
+            if (TimeChanged != null)
+                TimeChanged(this, new TimeChangedEventArgs(oldValue, newValue));
+        }
 
-			element.OnTimeFormatChanged();
-		}
+        private static void OnTimeFormatPropertyChanged(AvaloniaObject d, AvaloniaPropertyChangedEventArgs e)
+        {
+            FormsTimePicker element = d as FormsTimePicker;
+            if (element == null)
+                return;
 
-		private void OnTimeFormatChanged()
-		{
-			SetText();
-		}
-		#endregion
-	}
+            element.OnTimeFormatChanged();
+        }
 
-	public class TimeChangedEventArgs : EventArgs
-	{
-		private TimeSpan? _oldTime;
-		private TimeSpan? _newTime;
+        private void OnTimeFormatChanged()
+        {
+            SetText();
+        }
+        #endregion
+    }
 
-		public TimeSpan? OldTime
-		{
-			get { return _oldTime; }
-		}
+    public class TimeChangedEventArgs : EventArgs
+    {
+        private TimeSpan? _oldTime;
+        private TimeSpan? _newTime;
 
-		public TimeSpan? NewTime
-		{
-			get { return _newTime; }
-		}
+        public TimeSpan? OldTime
+        {
+            get { return _oldTime; }
+        }
 
-		public TimeChangedEventArgs(TimeSpan? oldTime, TimeSpan? newTime)
-		{
-			_oldTime = oldTime;
-			_newTime = newTime;
-		}
-	}
+        public TimeSpan? NewTime
+        {
+            get { return _newTime; }
+        }
+
+        public TimeChangedEventArgs(TimeSpan? oldTime, TimeSpan? newTime)
+        {
+            _oldTime = oldTime;
+            _newTime = newTime;
+        }
+    }
 }

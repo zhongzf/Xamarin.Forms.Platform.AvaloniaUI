@@ -13,6 +13,12 @@
         <Entry Placeholder="Entry test" />
         <Button Text="Test Button 2" Clicked="OnButtonClicked"  />
         <Editor />
+        <Picker />
+        <ProgressBar />
+        <Slider></Slider>
+        <Stepper />
+        <Switch />
+        <TimePicker></TimePicker>
     </StackLayout>
 
 </ContentPage>

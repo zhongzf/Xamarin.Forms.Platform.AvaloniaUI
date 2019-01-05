@@ -14,10 +14,10 @@ using Xamarin.Forms.Platform.AvaloniaUI.Helpers;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class ScrollViewRenderer : ViewRenderer<ScrollView, ScrollViewer>
-	{
-		VisualElement _currentView;
-		Animatable _animatable;
+    public class ScrollViewRenderer : ViewRenderer<ScrollView, ScrollViewer>
+    {
+        VisualElement _currentView;
+        Animatable _animatable;
 
         protected IScrollViewController Controller
         {
@@ -25,207 +25,210 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<ScrollView> e)
-		{
-			if (e.OldElement != null) // Clear old element event
-			{
-				((IScrollViewController)e.OldElement).ScrollToRequested -= OnScrollToRequested;
-			}
+        {
+            if (e.OldElement != null) // Clear old element event
+            {
+                ((IScrollViewController)e.OldElement).ScrollToRequested -= OnScrollToRequested;
+            }
 
-			if (e.NewElement != null)
-			{
-				if (Control == null) // construct and SetNativeControl and suscribe control event
-				{
-					//SetNativeControl(new ScrollViewer() { IsManipulationEnabled = true, PanningMode = PanningMode.Both,
-					//	HorizontalScrollBarVisibility = e.NewElement.HorizontalScrollBarVisibility.ToAvaloniaScrollBarVisibility(),
-					//	VerticalScrollBarVisibility = e.NewElement.VerticalScrollBarVisibility.ToAvaloniaScrollBarVisibility()
-					//});
-					Control.LayoutUpdated += NativeLayoutUpdated;
-				}
+            if (e.NewElement != null)
+            {
+                if (Control == null) // construct and SetNativeControl and suscribe control event
+                {
+                    SetNativeControl(new ScrollViewer()
+                    {
+                        //IsManipulationEnabled = true,
+                        //PanningMode = PanningMode.Both,
+                        //	HorizontalScrollBarVisibility = e.NewElement.HorizontalScrollBarVisibility.ToAvaloniaScrollBarVisibility(),
+                        //	VerticalScrollBarVisibility = e.NewElement.VerticalScrollBarVisibility.ToAvaloniaScrollBarVisibility()
+                    });
+                    Control.LayoutUpdated += NativeLayoutUpdated;
+                }
 
-				// Update control property 
-				UpdateOrientation();
-				LoadContent();
+                // Update control property 
+                UpdateOrientation();
+                LoadContent();
 
-				// Suscribe element event
-				Controller.ScrollToRequested += OnScrollToRequested;
-			}
+                // Suscribe element event
+                Controller.ScrollToRequested += OnScrollToRequested;
+            }
 
-			base.OnElementChanged(e);
-		}
+            base.OnElementChanged(e);
+        }
 
-		
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == "Content")
-				LoadContent();
-			else if (e.PropertyName == Layout.PaddingProperty.PropertyName)
-				UpdateMargins();
-			else if (e.PropertyName == ScrollView.OrientationProperty.PropertyName)
-				UpdateOrientation();
-			else if (e.PropertyName == ScrollView.VerticalScrollBarVisibilityProperty.PropertyName)
-				UpdateVerticalScrollBarVisibility();
-			else if (e.PropertyName == ScrollView.HorizontalScrollBarVisibilityProperty.PropertyName)
-				UpdateHorizontalScrollBarVisibility();
-		}
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
 
-		void NativeLayoutUpdated(object sender, EventArgs e)
-		{
-			UpdateScrollPosition();
-		}
+            if (e.PropertyName == "Content")
+                LoadContent();
+            else if (e.PropertyName == Layout.PaddingProperty.PropertyName)
+                UpdateMargins();
+            else if (e.PropertyName == ScrollView.OrientationProperty.PropertyName)
+                UpdateOrientation();
+            else if (e.PropertyName == ScrollView.VerticalScrollBarVisibilityProperty.PropertyName)
+                UpdateVerticalScrollBarVisibility();
+            else if (e.PropertyName == ScrollView.HorizontalScrollBarVisibilityProperty.PropertyName)
+                UpdateHorizontalScrollBarVisibility();
+        }
 
-		static double GetDistance(double start, double position, double v)
-		{
-			return start + (position - start) * v;
-		}
+        void NativeLayoutUpdated(object sender, EventArgs e)
+        {
+            UpdateScrollPosition();
+        }
 
-		void LoadContent()
-		{
-			if (_currentView != null)
-			{
-				_currentView.Cleanup(); // cleanup old view
-			}
+        static double GetDistance(double start, double position, double v)
+        {
+            return start + (position - start) * v;
+        }
 
-			_currentView = Element.Content;
+        void LoadContent()
+        {
+            if (_currentView != null)
+            {
+                _currentView.Cleanup(); // cleanup old view
+            }
 
-			if(_currentView != null)
-			{
-				/*
+            _currentView = Element.Content;
+
+            if (_currentView != null)
+            {
+                /*
 				 * Wrap Content in a DockPanel : The goal is to reduce ce Measure Cycle on scolling
 				 */
-				DockPanel dockPanel = new DockPanel();
-				//dockPanel.Children.Add(Platform.GetOrCreateRenderer(_currentView).GetNativeElement());
-				Control.Content = dockPanel;
-			}
-			else
-			{
-				Control.Content = null;
-			}
-			UpdateMargins();
-		}
+                DockPanel dockPanel = new DockPanel();
+                dockPanel.Children.Add(Platform.GetOrCreateRenderer(_currentView).GetNativeElement());
+                Control.Content = dockPanel;
+            }
+            else
+            {
+                Control.Content = null;
+            }
+            UpdateMargins();
+        }
 
-		void OnScrollToRequested(object sender, ScrollToRequestedEventArgs e)
-		{
-			if (_animatable == null && e.ShouldAnimate)
-				_animatable = new Animatable();
+        void OnScrollToRequested(object sender, ScrollToRequestedEventArgs e)
+        {
+            if (_animatable == null && e.ShouldAnimate)
+                _animatable = new Animatable();
 
-			ScrollToPosition position = e.Position;
-			double x = e.ScrollX;
-			double y = e.ScrollY;
+            ScrollToPosition position = e.Position;
+            double x = e.ScrollX;
+            double y = e.ScrollY;
 
-			if (e.Mode == ScrollToMode.Element)
-			{
-				Point itemPosition = Controller.GetScrollPositionForElement(e.Element as VisualElement, e.Position);
-				x = itemPosition.X;
-				y = itemPosition.Y;
-			}
+            if (e.Mode == ScrollToMode.Element)
+            {
+                Point itemPosition = Controller.GetScrollPositionForElement(e.Element as VisualElement, e.Position);
+                x = itemPosition.X;
+                y = itemPosition.Y;
+            }
 
-			//if (Control.VerticalOffset == y && Control.HorizontalOffset == x)
-			//	return;
+            //if (Control.VerticalOffset == y && Control.HorizontalOffset == x)
+            //	return;
 
-			if (e.ShouldAnimate)
-			{
-				//var animation = new Animation(v => { UpdateScrollOffset(GetDistance(Control.ViewportWidth, x, v), GetDistance(Control.ViewportHeight, y, v)); });
+            if (e.ShouldAnimate)
+            {
+                //var animation = new Animation(v => { UpdateScrollOffset(GetDistance(Control.ViewportWidth, x, v), GetDistance(Control.ViewportHeight, y, v)); });
 
-				//animation.Commit(_animatable, "ScrollTo", length: 500, easing: Easing.CubicInOut, finished: (v, d) =>
-				//{
-				//	UpdateScrollOffset(x, y);
-				//	Controller.SendScrollFinished();
-				//});
-			}
-			else
-			{
-				UpdateScrollOffset(x, y);
-				Controller.SendScrollFinished();
-			}
-		}
+                //animation.Commit(_animatable, "ScrollTo", length: 500, easing: Easing.CubicInOut, finished: (v, d) =>
+                //{
+                //	UpdateScrollOffset(x, y);
+                //	Controller.SendScrollFinished();
+                //});
+            }
+            else
+            {
+                UpdateScrollOffset(x, y);
+                Controller.SendScrollFinished();
+            }
+        }
 
-		void UpdateMargins()
-		{
-			var element = Control.Content as Control;
-			if (element == null)
-				return;
+        void UpdateMargins()
+        {
+            var element = Control.Content as Control;
+            if (element == null)
+                return;
 
-			switch (Element.Orientation)
-			{
-				case ScrollOrientation.Horizontal:
-					// need to add left/right margins
-					element.Margin = new Avalonia.Thickness(Element.Padding.Left, 0, 10, 0);
-					break;
-				case ScrollOrientation.Vertical:
-					// need to add top/bottom margins
-					element.Margin = new Avalonia.Thickness(0, Element.Padding.Top, 0, Element.Padding.Bottom);
-					break;
-				case ScrollOrientation.Both:
-					// need to add all margins
-					element.Margin = new Avalonia.Thickness(Element.Padding.Left, Element.Padding.Top, Element.Padding.Right, Element.Padding.Bottom);
-					break;
-			}
-		}
+            switch (Element.Orientation)
+            {
+                case ScrollOrientation.Horizontal:
+                    // need to add left/right margins
+                    element.Margin = new Avalonia.Thickness(Element.Padding.Left, 0, 10, 0);
+                    break;
+                case ScrollOrientation.Vertical:
+                    // need to add top/bottom margins
+                    element.Margin = new Avalonia.Thickness(0, Element.Padding.Top, 0, Element.Padding.Bottom);
+                    break;
+                case ScrollOrientation.Both:
+                    // need to add all margins
+                    element.Margin = new Avalonia.Thickness(Element.Padding.Left, Element.Padding.Top, Element.Padding.Right, Element.Padding.Bottom);
+                    break;
+            }
+        }
 
-		void UpdateOrientation()
-		{
-			var orientation = Element.Orientation;
-			//if (orientation == ScrollOrientation.Horizontal || orientation == ScrollOrientation.Both)
-			//	Control.HorizontalScrollBarVisibility = AvaloniaScrollBarVisibility.Auto;
-			//else
-			//	Control.HorizontalScrollBarVisibility = AvaloniaScrollBarVisibility.Disabled;
+        void UpdateOrientation()
+        {
+            var orientation = Element.Orientation;
+            //if (orientation == ScrollOrientation.Horizontal || orientation == ScrollOrientation.Both)
+            //	Control.HorizontalScrollBarVisibility = AvaloniaScrollBarVisibility.Auto;
+            //else
+            //	Control.HorizontalScrollBarVisibility = AvaloniaScrollBarVisibility.Disabled;
 
-			//if (orientation == ScrollOrientation.Vertical || orientation == ScrollOrientation.Both)
-			//	Control.VerticalScrollBarVisibility = AvaloniaScrollBarVisibility.Auto;
-			//else
-			//	Control.VerticalScrollBarVisibility = AvaloniaScrollBarVisibility.Disabled;
-		}
+            //if (orientation == ScrollOrientation.Vertical || orientation == ScrollOrientation.Both)
+            //	Control.VerticalScrollBarVisibility = AvaloniaScrollBarVisibility.Auto;
+            //else
+            //	Control.VerticalScrollBarVisibility = AvaloniaScrollBarVisibility.Disabled;
+        }
 
-		void UpdateScrollOffset(double x, double y)
-		{
-			//if (Element.Orientation == ScrollOrientation.Horizontal)
-			//	Control.ScrollToHorizontalOffset(x);
-			//else
-			//	Control.ScrollToVerticalOffset(y);
-		}
+        void UpdateScrollOffset(double x, double y)
+        {
+            //if (Element.Orientation == ScrollOrientation.Horizontal)
+            //	Control.ScrollToHorizontalOffset(x);
+            //else
+            //	Control.ScrollToVerticalOffset(y);
+        }
 
-		void UpdateScrollPosition()
-		{
-			//if (Element != null)
-			//	Controller.SetScrolledPosition(Control.HorizontalOffset, Control.VerticalOffset);
-		}
+        void UpdateScrollPosition()
+        {
+            //if (Element != null)
+            //	Controller.SetScrolledPosition(Control.HorizontalOffset, Control.VerticalOffset);
+        }
 
-		void UpdateVerticalScrollBarVisibility()
-		{
-			//Control.VerticalScrollBarVisibility = Element.VerticalScrollBarVisibility.ToAvaloniaScrollBarVisibility();
-		}
+        void UpdateVerticalScrollBarVisibility()
+        {
+            //Control.VerticalScrollBarVisibility = Element.VerticalScrollBarVisibility.ToAvaloniaScrollBarVisibility();
+        }
 
-		void UpdateHorizontalScrollBarVisibility()
-		{
-			var orientation = Element.Orientation;
-			//if (orientation == ScrollOrientation.Horizontal || orientation == ScrollOrientation.Both)
-			//	Control.HorizontalScrollBarVisibility = Element.HorizontalScrollBarVisibility.ToAvaloniaScrollBarVisibility();
-		}
+        void UpdateHorizontalScrollBarVisibility()
+        {
+            var orientation = Element.Orientation;
+            //if (orientation == ScrollOrientation.Horizontal || orientation == ScrollOrientation.Both)
+            //	Control.HorizontalScrollBarVisibility = Element.HorizontalScrollBarVisibility.ToAvaloniaScrollBarVisibility();
+        }
 
-		bool _isDisposed;
+        bool _isDisposed;
 
-		protected override void Dispose(bool disposing)
-		{
-			if (_isDisposed)
-				return;
+        protected override void Dispose(bool disposing)
+        {
+            if (_isDisposed)
+                return;
 
-			if (disposing)
-			{
-				if (Control != null)
-				{
-					Control.LayoutUpdated -= NativeLayoutUpdated;
-				}
+            if (disposing)
+            {
+                if (Control != null)
+                {
+                    Control.LayoutUpdated -= NativeLayoutUpdated;
+                }
 
-				if (Element != null)
-				{
-					Controller.ScrollToRequested -= OnScrollToRequested;
-				}
-			}
+                if (Element != null)
+                {
+                    Controller.ScrollToRequested -= OnScrollToRequested;
+                }
+            }
 
-			_isDisposed = true;
-			base.Dispose(disposing);
-		}
-	}
+            _isDisposed = true;
+            base.Dispose(disposing);
+        }
+    }
 }
