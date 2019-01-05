@@ -24,7 +24,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 // Update control property 
                 UpdateClipToBounds();
                 foreach (Element child in ElementController.LogicalChildren)
+                {
                     HandleChildAdded(Element, new ElementEventArgs(child));
+                }
 
                 // Suscribe element event
                 Element.ChildAdded += HandleChildAdded;
@@ -51,9 +53,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                     return;
 
                 IVisualElementRenderer renderer = Platform.GetOrCreateRenderer(view);
-                Control.Children.Add(renderer.GetNativeElement());
+                Control native = renderer.GetNativeElement();
+                Control.Children.Add(native);
                 if (_isZChanged)
+                {
                     EnsureZIndex();
+                }
             });
         }
 
@@ -72,7 +77,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                     Control.Children.Remove(native);
                     view.Cleanup();
                     if (_isZChanged)
+                    {
                         EnsureZIndex();
+                    }
                 }
             });
         }

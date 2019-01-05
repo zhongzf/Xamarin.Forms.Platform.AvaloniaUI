@@ -5,10 +5,11 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using static System.String;
 using AControl = Avalonia.Controls.Control;
+using ATextBox = Avalonia.Controls.TextBox;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-    public class EntryRenderer : ViewRenderer<Entry, FormsTextBox>
+    public class EntryRenderer : ViewRenderer<Entry, ATextBox>
     {
         bool _fontApplied;
         bool _ignoreTextChange;
@@ -20,7 +21,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             {
                 if (Control == null) // Construct and SetNativeControl and suscribe control event
                 {
-                    SetNativeControl(new FormsTextBox());
+                    SetNativeControl(new ATextBox());
                     Control.LostFocus += OnTextBoxUnfocused;
                     //Control.TextChanged += TextBoxOnTextChanged;
                     Control.KeyUp += TextBoxOnKeyUp;
