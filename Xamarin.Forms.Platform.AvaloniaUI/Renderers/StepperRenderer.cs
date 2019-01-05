@@ -8,15 +8,15 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
-using WButton = Avalonia.Controls.Button;
+using AButton = Avalonia.Controls.Button;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
 	public class StepperRenderer : ViewRenderer<Stepper, Border>
 	{
 		readonly StackPanel _panel = new StackPanel();
-		WButton _downButton;
-		WButton _upButton;
+		AButton _downButton;
+		AButton _upButton;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Stepper> e)
 		{
@@ -51,8 +51,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			_panel.HorizontalAlignment = HorizontalAlignment.Right;
 			_panel.Orientation = Orientation.Horizontal;
 
-			_upButton = new WButton { Content = "+", Width = 100 };
-			_downButton = new WButton { Content = "-", Width = 100 };
+			_upButton = new AButton { Content = "+", Width = 100 };
+			_downButton = new AButton { Content = "-", Width = 100 };
 
 			_panel.Children.Add(_downButton);
 			_panel.Children.Add(_upButton);

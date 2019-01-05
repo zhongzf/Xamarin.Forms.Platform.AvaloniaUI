@@ -8,11 +8,11 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Xamarin.Forms.Internals;
-using WImage = Avalonia.Controls.Image;
+using AImage = Avalonia.Controls.Image;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class ImageRenderer : ViewRenderer<Image, WImage>
+	public class ImageRenderer : ViewRenderer<Image, AImage>
 	{
 		protected override async void OnElementChanged(ElementChangedEventArgs<Image> e)
 		{
@@ -20,7 +20,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
-					SetNativeControl(new WImage());
+					SetNativeControl(new AImage());
 				}
 
 				// Update control property 

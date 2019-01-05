@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using Avalonia;
 using Xamarin.Forms.Internals;
-using WProgressBar = Avalonia.Controls.ProgressBar;
+using AProgressBar = Avalonia.Controls.ProgressBar;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class ProgressBarRenderer : ViewRenderer<ProgressBar, WProgressBar>
+	public class ProgressBarRenderer : ViewRenderer<ProgressBar, AProgressBar>
 	{
 		protected override void OnElementChanged(ElementChangedEventArgs<ProgressBar> e)
 		{
@@ -13,7 +13,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
-					SetNativeControl(new WProgressBar { Minimum = 0, Maximum = 1 });
+					SetNativeControl(new AProgressBar { Minimum = 0, Maximum = 1 });
 					//Control.ValueChanged += HandleValueChanged;
 				}
 

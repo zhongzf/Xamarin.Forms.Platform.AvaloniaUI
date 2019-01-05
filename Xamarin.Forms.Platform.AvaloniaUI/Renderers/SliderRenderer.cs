@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
-using WSlider = Avalonia.Controls.Slider;
+using ASlider = Avalonia.Controls.Slider;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class SliderRenderer : ViewRenderer<Slider, WSlider>
+	public class SliderRenderer : ViewRenderer<Slider, ASlider>
 	{
 		protected override void OnElementChanged(ElementChangedEventArgs<Slider> e)
 		{
@@ -17,7 +17,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
-					SetNativeControl(new WSlider());
+					SetNativeControl(new ASlider());
 					//Control.ValueChanged += HandleValueChanged;
 				}
 

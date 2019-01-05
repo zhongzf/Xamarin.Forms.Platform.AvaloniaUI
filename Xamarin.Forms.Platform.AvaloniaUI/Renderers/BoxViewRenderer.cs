@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Media;
-using WRectangle = Avalonia.Controls.Shapes.Rectangle;
+using ARectangle = Avalonia.Controls.Shapes.Rectangle;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class BoxViewRenderer : ViewRenderer<BoxView, WRectangle>
+	public class BoxViewRenderer : ViewRenderer<BoxView, ARectangle>
 	{
 		Border _border;
 
@@ -16,7 +16,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control == null) // Construct and SetNativeControl and suscribe control event
 				{
-					WRectangle rectangle = new WRectangle();
+					ARectangle rectangle = new ARectangle();
 
 					_border = new Border();
 

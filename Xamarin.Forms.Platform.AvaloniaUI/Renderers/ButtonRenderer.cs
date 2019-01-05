@@ -6,13 +6,13 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using WButton = Avalonia.Controls.Button;
-using WImage = Avalonia.Controls.Image;
-using WThickness = Avalonia.Thickness;
+using AButton = Avalonia.Controls.Button;
+using AImage = Avalonia.Controls.Image;
+using AThickness = Avalonia.Thickness;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class ButtonRenderer : ViewRenderer<Button, WButton>
+	public class ButtonRenderer : ViewRenderer<Button, AButton>
 	{
 		bool _fontApplied;
 
@@ -22,7 +22,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
-					SetNativeControl(new WButton());
+					SetNativeControl(new AButton());
 					Control.Click += HandleButtonClick;
 				}
 
@@ -68,12 +68,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 		
 		void UpdateBorderColor()
 		{
-			Control.UpdateDependencyColor(WButton.BorderBrushProperty, Element.BorderColor);
+			Control.UpdateDependencyColor(AButton.BorderBrushProperty, Element.BorderColor);
 		}
 
 		void UpdateBorderWidth()
 		{
-			Control.BorderThickness = Element.BorderWidth <= 0d ? new WThickness(1) : new WThickness(Element.BorderWidth);
+			Control.BorderThickness = Element.BorderWidth <= 0d ? new AThickness(1) : new AThickness(Element.BorderWidth);
 		}
 
 		void UpdateContent()
@@ -88,7 +88,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 				return;
 			}
 
-			var image = new WImage
+			var image = new AImage
 			{
 				//Source = new BitmapImage(new Uri("/" + elementImage.File, UriKind.Relative)),
 				Width = 30,
@@ -123,20 +123,20 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				case Button.ButtonContentLayout.ImagePosition.Top:
 					container.Orientation = Orientation.Vertical;
-					image.Margin = new WThickness(0, 0, 0, spacing);
+					image.Margin = new AThickness(0, 0, 0, spacing);
 					break;
 				case Button.ButtonContentLayout.ImagePosition.Bottom:
 					container.Orientation = Orientation.Vertical;
-					image.Margin = new WThickness(0, spacing, 0, 0);
+					image.Margin = new AThickness(0, spacing, 0, 0);
 					break;
 				case Button.ButtonContentLayout.ImagePosition.Right:
 					container.Orientation = Orientation.Horizontal;
-					image.Margin = new WThickness(spacing, 0, 0, 0);
+					image.Margin = new AThickness(spacing, 0, 0, 0);
 					break;
 				default:
 					// Defaults to image on the left
 					container.Orientation = Orientation.Horizontal;
-					image.Margin = new WThickness(0, 0, spacing, 0);
+					image.Margin = new AThickness(0, 0, spacing, 0);
 					break;
 			}
 
@@ -162,7 +162,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
 		void UpdateTextColor()
 		{
-			Control.UpdateDependencyColor(WButton.ForegroundProperty, Element.TextColor);
+			Control.UpdateDependencyColor(AButton.ForegroundProperty, Element.TextColor);
 		}
 
 		bool _isDisposed;
