@@ -8,257 +8,261 @@ using AControl = Avalonia.Controls.Control;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
-	public class EntryRenderer : ViewRenderer<Entry, FormsTextBox>
-	{
-		bool _fontApplied;
-		bool _ignoreTextChange;
-		Brush _placeholderDefaultBrush;
-		
-		protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
-		{
-			if (e.NewElement != null)
-			{
-				if (Control == null) // Construct and SetNativeControl and suscribe control event
-				{
-					SetNativeControl(new FormsTextBox());
-					Control.LostFocus += OnTextBoxUnfocused;
-					//Control.TextChanged += TextBoxOnTextChanged;
-					Control.KeyUp += TextBoxOnKeyUp;
-				}
+    public class EntryRenderer : ViewRenderer<Entry, FormsTextBox>
+    {
+        bool _fontApplied;
+        bool _ignoreTextChange;
+        Brush _placeholderDefaultBrush;
 
-				// Update Control properties
-				UpdateInputScope();
-				UpdateIsPassword();
-				UpdateText();
-				UpdatePlaceholder();
-				UpdateColor();
-				UpdateFont();
-				UpdateAlignment();
-				UpdatePlaceholderColor();
-				UpdateMaxLength();
-			}
+        protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+        {
+            if (e.NewElement != null)
+            {
+                if (Control == null) // Construct and SetNativeControl and suscribe control event
+                {
+                    SetNativeControl(new FormsTextBox());
+                    Control.LostFocus += OnTextBoxUnfocused;
+                    //Control.TextChanged += TextBoxOnTextChanged;
+                    Control.KeyUp += TextBoxOnKeyUp;
+                }
 
-			base.OnElementChanged(e);
-		}
+                // Update Control properties
+                UpdateInputScope();
+                UpdateIsPassword();
+                UpdateText();
+                UpdatePlaceholder();
+                UpdateColor();
+                UpdateFont();
+                UpdateAlignment();
+                UpdatePlaceholderColor();
+                UpdateMaxLength();
+            }
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
+            base.OnElementChanged(e);
+        }
 
-			if (e.PropertyName == Entry.TextProperty.PropertyName)
-				UpdateText();
-			else if (e.PropertyName == Entry.PlaceholderProperty.PropertyName)
-				UpdatePlaceholder();
-			else if (e.PropertyName == Entry.IsPasswordProperty.PropertyName)
-				UpdateIsPassword();
-			else if (e.PropertyName == Entry.TextColorProperty.PropertyName)
-				UpdateColor();
-			else if (e.PropertyName == InputView.KeyboardProperty.PropertyName)
-				UpdateInputScope();
-			else if (e.PropertyName == Entry.FontAttributesProperty.PropertyName)
-				UpdateFont();
-			else if (e.PropertyName == Entry.FontFamilyProperty.PropertyName)
-				UpdateFont();
-			else if (e.PropertyName == Entry.FontSizeProperty.PropertyName)
-				UpdateFont();
-			else if (e.PropertyName == Entry.HorizontalTextAlignmentProperty.PropertyName)
-				UpdateAlignment();
-			else if (e.PropertyName == Entry.PlaceholderColorProperty.PropertyName)
-				UpdatePlaceholderColor();
-			else if (e.PropertyName == InputView.MaxLengthProperty.PropertyName)
-				UpdateMaxLength();
-		}
-		
-		internal override void OnModelFocusChangeRequested(object sender, VisualElement.FocusRequestArgs args)
-		{
-			//if (args.Focus)
-			//	args.Result = Control.Focus();
-			//else
-			//{
-			//	UnfocusControl(Control);
-			//	args.Result = true;
-			//}
-		}
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
 
-		void OnTextBoxUnfocused(object sender, RoutedEventArgs e)
-		{
-			if (Element.TextColor.IsDefault)
-				return;
+            if (e.PropertyName == Entry.TextProperty.PropertyName)
+                UpdateText();
+            else if (e.PropertyName == Entry.PlaceholderProperty.PropertyName)
+                UpdatePlaceholder();
+            else if (e.PropertyName == Entry.IsPasswordProperty.PropertyName)
+                UpdateIsPassword();
+            else if (e.PropertyName == Entry.TextColorProperty.PropertyName)
+                UpdateColor();
+            else if (e.PropertyName == InputView.KeyboardProperty.PropertyName)
+                UpdateInputScope();
+            else if (e.PropertyName == Entry.FontAttributesProperty.PropertyName)
+                UpdateFont();
+            else if (e.PropertyName == Entry.FontFamilyProperty.PropertyName)
+                UpdateFont();
+            else if (e.PropertyName == Entry.FontSizeProperty.PropertyName)
+                UpdateFont();
+            else if (e.PropertyName == Entry.HorizontalTextAlignmentProperty.PropertyName)
+                UpdateAlignment();
+            else if (e.PropertyName == Entry.PlaceholderColorProperty.PropertyName)
+                UpdatePlaceholderColor();
+            else if (e.PropertyName == InputView.MaxLengthProperty.PropertyName)
+                UpdateMaxLength();
+        }
 
-			if (!IsNullOrEmpty(Element.Text))
-				Control.Foreground = Element.TextColor.ToBrush();
-		}
+        internal override void OnModelFocusChangeRequested(object sender, VisualElement.FocusRequestArgs args)
+        {
+            //if (args.Focus)
+            //	args.Result = Control.Focus();
+            //else
+            //{
+            //	UnfocusControl(Control);
+            //	args.Result = true;
+            //}
+        }
 
-		void TextBoxOnKeyUp(object sender, KeyEventArgs keyEventArgs)
-		{
-			if (keyEventArgs.Key == Key.Enter)
-				((IEntryController)Element).SendCompleted();
-		}
+        void OnTextBoxUnfocused(object sender, RoutedEventArgs e)
+        {
+            if (Element.TextColor.IsDefault)
+                return;
 
-		//void TextBoxOnTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs textChangedEventArgs)
-		//{
-		//	// Signal to the UpdateText method that the change to TextProperty doesn't need to update the control
-		//	// This prevents the cursor position from getting lost
-		//	_ignoreTextChange = true;
-		//	((IElementController)Element).SetValueFromRenderer(Entry.TextProperty, Control.Text);
+            if (!IsNullOrEmpty(Element.Text))
+                Control.Foreground = Element.TextColor.ToBrush();
+        }
 
-		//	// If an Entry.TextChanged handler modified the value of the Entry's text, the values could now be 
-		//	// out-of-sync; re-sync them and force the TextBox cursor to the end of the text
-		//	string entryText = Element.Text;
-		//	if (Control.Text != entryText)
-		//	{
-		//		Control.Text = entryText;
-		//		if (Control.Text != null)
-		//			Control.SelectionStart = Control.Text.Length;
-		//	}
+        void TextBoxOnKeyUp(object sender, KeyEventArgs keyEventArgs)
+        {
+            if (keyEventArgs.Key == Key.Enter)
+                ((IEntryController)Element).SendCompleted();
+        }
 
-		//	_ignoreTextChange = false;
-		//}
+        //void TextBoxOnTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs textChangedEventArgs)
+        //{
+        //	// Signal to the UpdateText method that the change to TextProperty doesn't need to update the control
+        //	// This prevents the cursor position from getting lost
+        //	_ignoreTextChange = true;
+        //	((IElementController)Element).SetValueFromRenderer(Entry.TextProperty, Control.Text);
 
-		void UpdateAlignment()
-		{
-			if (Control == null)
-				return;
+        //	// If an Entry.TextChanged handler modified the value of the Entry's text, the values could now be 
+        //	// out-of-sync; re-sync them and force the TextBox cursor to the end of the text
+        //	string entryText = Element.Text;
+        //	if (Control.Text != entryText)
+        //	{
+        //		Control.Text = entryText;
+        //		if (Control.Text != null)
+        //			Control.SelectionStart = Control.Text.Length;
+        //	}
 
-			Control.TextAlignment = Element.HorizontalTextAlignment.ToNativeTextAlignment();
-		}
+        //	_ignoreTextChange = false;
+        //}
 
-		void UpdateColor()
-		{
-			if (Control == null)
-				return;
+        void UpdateAlignment()
+        {
+            if (Control == null)
+                return;
 
-			Entry entry = Element;
-			if (entry != null)
-			{
-				if (!IsNullOrEmpty(entry.Text))
-				{
-					//if (!entry.TextColor.IsDefault)
-					//	Control.Foreground = entry.TextColor.ToBrush();
-					//else
-					//	Control.Foreground = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue;
+            Control.TextAlignment = Element.HorizontalTextAlignment.ToNativeTextAlignment();
+        }
 
-					// Force the PhoneTextBox control to do some internal bookkeeping
-					// so the colors change immediately and remain changed when the control gets focus
-					//Control.OnApplyTemplate();
-				}
-			}
-			//else
-			//	Control.Foreground = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue;
-		}
+        void UpdateColor()
+        {
+            if (Control == null)
+                return;
 
-		void UpdateFont()
-		{
-			if (Control == null)
-				return;
+            Entry entry = Element;
+            if (entry != null)
+            {
+                if (!IsNullOrEmpty(entry.Text))
+                {
+                    //if (!entry.TextColor.IsDefault)
+                    //	Control.Foreground = entry.TextColor.ToBrush();
+                    //else
+                    //	Control.Foreground = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue;
 
-			Entry entry = Element;
+                    // Force the PhoneTextBox control to do some internal bookkeeping
+                    // so the colors change immediately and remain changed when the control gets focus
+                    //Control.OnApplyTemplate();
+                }
+            }
+            //else
+            //	Control.Foreground = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue;
+        }
 
-			if (entry == null)
-				return;
+        void UpdateFont()
+        {
+            if (Control == null)
+                return;
 
-			bool entryIsDefault = entry.FontFamily == null && entry.FontSize == Device.GetNamedSize(NamedSize.Default, typeof(Entry), true) && entry.FontAttributes == FontAttributes.None;
+            Entry entry = Element;
 
-			if (entryIsDefault && !_fontApplied)
-				return;
+            if (entry == null)
+                return;
 
-			if (entryIsDefault)
-			{
-				//Control.ClearValue(AControl.FontStyleProperty);
-				//Control.ClearValue(AControl.FontSizeProperty);
-				//Control.ClearValue(AControl.FontFamilyProperty);
-				//Control.ClearValue(AControl.FontWeightProperty);
-				//Control.ClearValue(AControl.FontStretchProperty);
-			}
-			else
-				Control.ApplyFont(entry);
+            bool entryIsDefault = entry.FontFamily == null && entry.FontSize == Device.GetNamedSize(NamedSize.Default, typeof(Entry), true) && entry.FontAttributes == FontAttributes.None;
 
-			_fontApplied = true;
-		}
+            if (entryIsDefault && !_fontApplied)
+                return;
 
-		void UpdateInputScope()
-		{
-			//Control.InputScope = Element.Keyboard.ToInputScope();
-		}
-		
-		void UpdateIsPassword()
-		{
-			//Control.IsPassword = Element.IsPassword;
-		}
+            if (entryIsDefault)
+            {
+                //Control.ClearValue(AControl.FontStyleProperty);
+                //Control.ClearValue(AControl.FontSizeProperty);
+                //Control.ClearValue(AControl.FontFamilyProperty);
+                //Control.ClearValue(AControl.FontWeightProperty);
+                //Control.ClearValue(AControl.FontStretchProperty);
+            }
+            else
+                Control.ApplyFont(entry);
 
-		void UpdatePlaceholder()
-		{
-			//Control.PlaceholderText = Element.Placeholder ?? string.Empty;
-		}
+            _fontApplied = true;
+        }
 
-		void UpdatePlaceholderColor()
-		{
-			Color placeholderColor = Element.PlaceholderColor;
+        void UpdateInputScope()
+        {
+            //Control.InputScope = Element.Keyboard.ToInputScope();
+        }
 
-			//if (placeholderColor.IsDefault)
-			//{
-			//	if (_placeholderDefaultBrush == null)
-			//	{
-			//		_placeholderDefaultBrush = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue; 
-			//	}
+        void UpdateIsPassword()
+        {
+            //Control.IsPassword = Element.IsPassword;
+        }
 
-			//	// Use the cached default brush
-			//	Control.PlaceholderForegroundBrush = _placeholderDefaultBrush;
-			//	return;
-			//}
+        void UpdatePlaceholder()
+        {
+            //Control.PlaceholderText = Element.Placeholder ?? string.Empty;
+        }
 
-			//if (_placeholderDefaultBrush == null)
-			//{
-			//	// Cache the default brush in case we need to set the color back to default
-			//	_placeholderDefaultBrush = Control.PlaceholderForegroundBrush;
-			//}
+        void UpdatePlaceholderColor()
+        {
+            Color placeholderColor = Element.PlaceholderColor;
 
-			//Control.PlaceholderForegroundBrush = placeholderColor.ToBrush();
-		}
+            //if (placeholderColor.IsDefault)
+            //{
+            //	if (_placeholderDefaultBrush == null)
+            //	{
+            //		_placeholderDefaultBrush = (Brush)AControl.ForegroundProperty.GetMetadata(typeof(FormsTextBox)).DefaultValue; 
+            //	}
 
-		void UpdateText()
-		{
-			// If the text property has changed because TextBoxOnTextChanged called SetValueFromRenderer,
-			// we don't want to re-update the text and reset the cursor position
-			if (_ignoreTextChange)
-				return;
+            //	// Use the cached default brush
+            //	Control.PlaceholderForegroundBrush = _placeholderDefaultBrush;
+            //	return;
+            //}
 
-			if (Control.Text == Element.Text)
-				return;
+            //if (_placeholderDefaultBrush == null)
+            //{
+            //	// Cache the default brush in case we need to set the color back to default
+            //	_placeholderDefaultBrush = Control.PlaceholderForegroundBrush;
+            //}
 
-			Control.Text = Element.Text ?? "";
-			//Control.Select(Control.Text == null ? 0 : Control.Text.Length, 0);
-		}
+            //Control.PlaceholderForegroundBrush = placeholderColor.ToBrush();
+        }
 
-		void UpdateMaxLength()
-		{
-			//Control.MaxLength = Element.MaxLength;
+        void UpdateText()
+        {
+            // If the text property has changed because TextBoxOnTextChanged called SetValueFromRenderer,
+            // we don't want to re-update the text and reset the cursor position
+            if (_ignoreTextChange)
+                return;
 
-			var currentControlText = Control.Text;
+            if (Control.Text == Element.Text)
+                return;
 
-			if (currentControlText.Length > Element.MaxLength)
-				Control.Text = currentControlText.Substring(0, Element.MaxLength);
-		}
+            Control.Text = Element.Text ?? "";
+            //Control.Select(Control.Text == null ? 0 : Control.Text.Length, 0);
+        }
 
-		bool _isDisposed;
+        void UpdateMaxLength()
+        {
+            //Control.MaxLength = Element.MaxLength;
 
-		protected override void Dispose(bool disposing)
-		{
-			if (_isDisposed)
-				return;
+            var currentControlText = Control.Text;
+            if (currentControlText != null)
+            {
+                if (currentControlText.Length > Element.MaxLength)
+                {
+                    Control.Text = currentControlText.Substring(0, Element.MaxLength);
+                }
+            }
+        }
 
-			if (disposing)
-			{
-				if (Control != null)
-				{
-					Control.LostFocus -= OnTextBoxUnfocused;
-					//Control.TextChanged -= TextBoxOnTextChanged;
-					Control.KeyUp -= TextBoxOnKeyUp;
-				}
-			}
+        bool _isDisposed;
 
-			_isDisposed = true;
-			base.Dispose(disposing);
-		}
-	}
+        protected override void Dispose(bool disposing)
+        {
+            if (_isDisposed)
+                return;
+
+            if (disposing)
+            {
+                if (Control != null)
+                {
+                    Control.LostFocus -= OnTextBoxUnfocused;
+                    //Control.TextChanged -= TextBoxOnTextChanged;
+                    Control.KeyUp -= TextBoxOnKeyUp;
+                }
+            }
+
+            _isDisposed = true;
+            base.Dispose(disposing);
+        }
+    }
 }
