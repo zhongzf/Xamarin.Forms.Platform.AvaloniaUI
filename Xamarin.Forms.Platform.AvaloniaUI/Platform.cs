@@ -61,7 +61,6 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             //options.SetResult(dialogResult == LightContentDialogResult.Primary);
         }
 
-
         async void OnPageActionSheet(Page sender, ActionSheetArguments options)
         {
             //var list = new Avalonia.Controls.ListView
@@ -191,6 +190,18 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             Application.Current.NavigationProxy.Inner = this;
         }
 
+
+        public static SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint)
+        {
+            if (widthConstraint > 0 && heightConstraint > 0 && GetRenderer(view) != null)
+            {
+                IVisualElementRenderer element = GetRenderer(view);
+                return element.GetDesiredSize(widthConstraint, heightConstraint);
+            }
+
+            return new SizeRequest();
+        }
+
         public static IVisualElementRenderer GetOrCreateRenderer(VisualElement element)
         {
             if (GetRenderer(element) == null)
@@ -216,6 +227,5 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             self.SetValue(RendererProperty, renderer);
             self.IsPlatformEnabled = renderer != null;
         }
-
     }
 }

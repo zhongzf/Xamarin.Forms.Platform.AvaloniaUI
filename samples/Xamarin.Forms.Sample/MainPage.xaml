@@ -11,7 +11,7 @@
            VerticalOptions="CenterAndExpand" />
         <Button Text="Test Button" />
         <Entry Placeholder="Entry test" />
-        <Button Text="Test Button 2" />
+        <Button Text="Test Button 2" Clicked="OnButtonClicked"  />
         <Editor />
     </StackLayout>
 

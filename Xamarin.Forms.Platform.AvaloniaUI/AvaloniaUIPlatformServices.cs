@@ -16,18 +16,22 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
     {
         public const string AvaloniaUI = "AvaloniaUI";
 
-        public bool IsInvokeRequired => throw new NotImplementedException();
 
         public string RuntimePlatform => AvaloniaUI;
 
+        public bool IsInvokeRequired
+        {
+            get { return !Dispatcher.UIThread.CheckAccess(); }
+        }
+
         public void BeginInvokeOnMainThread(Action action)
         {
-            throw new NotImplementedException();
+            Dispatcher.UIThread.InvokeAsync(action);
         }
 
         public Ticker CreateTicker()
         {
-            throw new NotImplementedException();
+            return new AvaloniaUITicker();
         }
 
         public Assembly[] GetAssemblies()
@@ -84,7 +88,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint)
         {
-            throw new NotImplementedException();
+            return Platform.GetNativeSize(view, widthConstraint, heightConstraint);
         }
 
         public Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken)
@@ -133,7 +137,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         public void QuitApplication()
         {
-            throw new NotImplementedException();
+            Avalonia.Application.Current.Exit();
         }
 
         public void StartTimer(TimeSpan interval, Func<bool> callback)

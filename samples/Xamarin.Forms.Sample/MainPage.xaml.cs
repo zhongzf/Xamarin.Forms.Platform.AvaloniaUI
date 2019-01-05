@@ -13,5 +13,11 @@ namespace Xamarin.Forms.Sample
         {
             InitializeComponent();
         }
+        
+        async void OnButtonClicked(object sender, EventArgs args)
+        {
+            Console.WriteLine("test");
+            Application.Current.Quit();
+        }
     }
 }
