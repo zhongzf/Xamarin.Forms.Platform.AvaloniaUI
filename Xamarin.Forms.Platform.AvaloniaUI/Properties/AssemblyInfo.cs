@@ -57,6 +57,9 @@ using Xamarin.Forms.Platform.AvaloniaUI;
 //[assembly: ExportCell(typeof(SwitchCell), typeof(SwitchCellRenderer))]
 //[assembly: ExportCell(typeof(ViewCell), typeof(ViewCellRenderer))]
 
+// AvaloniaUI
+[assembly: ExportRenderer(typeof(StackLayout), typeof(StackLayoutRenderer))]
+
 // Others
 [assembly: Xamarin.Forms.Dependency(typeof(ResourcesProvider))]
 //[assembly: Xamarin.Forms.Dependency(typeof(Deserializer))]
