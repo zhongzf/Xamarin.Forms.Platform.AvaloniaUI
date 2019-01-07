@@ -8,6 +8,8 @@
         <!-- Place new controls here -->
         <Label Text="Welcome to Xamarin.Forms!" HeightRequest="40" />
         <Button Text="Test Button" HeightRequest="40" />
+        <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
+        <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
         <Editor  HeightRequest="40" />
         <Picker  HeightRequest="40" />
         <ProgressBar  HeightRequest="40"  />
