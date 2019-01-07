@@ -19,35 +19,6 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             Element = element;
         }
 
-        protected override Avalonia.Size ArrangeOverride(Avalonia.Size finalSize)
-        {
-            if (Element == null)
-                return finalSize;
-
-            Element.IsInNativeLayout = true;
-
-            for (var i = 0; i < ElementController.LogicalChildren.Count; i++)
-            {
-                var child = ElementController.LogicalChildren[i] as VisualElement;
-                if (child == null)
-                    continue;
-
-                IVisualElementRenderer renderer = Platform.GetRenderer(child);
-                if (renderer == null)
-                    continue;
-                Rectangle bounds = child.Bounds;
-
-                Control control = renderer.GetNativeElement();
-                var width = Math.Max(Math.Max(0, bounds.Width), DesiredSize.Width);
-                var height = Math.Max(Math.Max(0, bounds.Height), DesiredSize.Height);
-                control.Arrange(new Rect(bounds.X, bounds.Y, width, height));
-            }
-
-            Element.IsInNativeLayout = false;
-
-            return finalSize;
-        }
-
         protected override Avalonia.Size MeasureOverride(Avalonia.Size availableSize)
         {
             if (Element == null || availableSize.Width * availableSize.Height == 0)
@@ -60,17 +31,16 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 var child = ElementController.LogicalChildren[i] as VisualElement;
                 if (child == null)
                     continue;
+
                 IVisualElementRenderer renderer = Platform.GetOrCreateRenderer(child);
                 if (renderer == null)
                     continue;
 
                 Control control = renderer.GetNativeElement();
-                if (control.Width != child.Width || control.Height != child.Height)
+                if (control.Bounds.Width != child.Width || control.Bounds.Height != child.Height)
                 {
-                    double width = child.Width <= -1 ? Width : child.Width;
-                    double height = child.Height <= -1 ? Height : child.Height;
-                    width = Math.Max(double.IsNaN(width) ? 0.0 : width, DesiredSize.Width);
-                    height = Math.Max(double.IsNaN(height) ? 0.0 : height, DesiredSize.Height);
+                    double width = child.Width <= -1 ? Bounds.Width : child.Width;
+                    double height = child.Height <= -1 ? Bounds.Height : child.Height;
                     control.Measure(new Avalonia.Size(width, height));
                 }
             }
@@ -93,6 +63,34 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 result.WithWidth(0.0);
 
             return result;
+        }
+
+        protected override Avalonia.Size ArrangeOverride(Avalonia.Size finalSize)
+        {
+            if (Element == null)
+                return finalSize;
+
+            Element.IsInNativeLayout = true;
+
+            for (var i = 0; i < ElementController.LogicalChildren.Count; i++)
+            {
+                var child = ElementController.LogicalChildren[i] as VisualElement;
+                if (child == null)
+                    continue;
+
+                IVisualElementRenderer renderer = Platform.GetRenderer(child);
+                if (renderer == null)
+                    continue;
+
+                Rectangle bounds = child.Bounds;
+                Control control = renderer.GetNativeElement();
+                Rect childFinal = new Rect(bounds.X, bounds.Y, Math.Max(0, bounds.Width), Math.Max(0, bounds.Height));
+                control.Arrange(childFinal);
+            }
+
+            Element.IsInNativeLayout = false;
+
+            return finalSize;
         }
     }
 }

@@ -121,9 +121,24 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Controls
         public FormsWindow()
         {
             //this.DefaultStyleKey = typeof(FormsWindow);
-            //this.Loaded += (sender, e) => Appearing();
-            //this.Unloaded += (sender, e) => Disappearing();
+            this.Activated += (sender, e) => Appearing();
+            this.Closing += (sender, e) => Disappearing();
             StartupPageProperty.Changed.AddClassHandler<FormsWindow>(x => x.OnStartupPageChanged);
+
+            this.LayoutUpdated += FormsWindow_LayoutUpdated;
+        }
+
+        private void FormsWindow_LayoutUpdated(object sender, EventArgs e)
+        {
+            if (this.Content is Control)
+            {
+                var bounds = this.Bounds;
+                var control = this.Content as Control;
+                Rect childFinal = new Rect(bounds.X, bounds.Y, Math.Max(0, bounds.Width), Math.Max(0, bounds.Height));
+                //control.Arrange(childFinal);
+                control.Width = childFinal.Width;
+                control.Height = childFinal.Height;
+            }
         }
 
         protected virtual void OnStartupPageChanged(AvaloniaPropertyChangedEventArgs e)

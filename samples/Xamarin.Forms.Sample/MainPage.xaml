@@ -6,11 +6,9 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-        <Button Text="Test Button" />
-        <Entry Placeholder="Entry test" />
+        <Label Text="Welcome to Xamarin.Forms!" HeightRequest="40" />
+        <Button Text="Test Button" HeightRequest="40" />
+        <!--<Entry Placeholder="Entry test" />
         <Button Text="Test Button 2" Clicked="OnButtonClicked"  />
         <Editor />
         <Picker />
@@ -18,7 +16,7 @@
         <Slider></Slider>
         <Stepper />
         <Switch />
-        <TimePicker></TimePicker>
+        <TimePicker></TimePicker>-->
     </StackLayout>
 
 </ContentPage>

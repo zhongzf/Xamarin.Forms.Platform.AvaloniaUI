@@ -6,6 +6,7 @@ using Avalonia;
 using Avalonia.Controls;
 //using Avalonia.Documents;
 using Avalonia.Media;
+using Xamarin.Forms.Platform.AvaloniaUI.Extensions;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
@@ -38,7 +39,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 		public override SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint)
 		{
 			var size = base.GetDesiredSize(widthConstraint, heightConstraint);
-			//Control.RecalculateSpanPositions(Element, _inlineHeights);
+			Control.RecalculateSpanPositions(Element, _inlineHeights);
 			return size;
 		}
 

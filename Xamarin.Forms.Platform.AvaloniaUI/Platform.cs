@@ -185,6 +185,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             if (mainPage == null)
                 return;
 
+            if (Page == mainPage)
+                return;
+
             Page = mainPage;
             _page.StartupPage = Page;
             Application.Current.NavigationProxy.Inner = this;

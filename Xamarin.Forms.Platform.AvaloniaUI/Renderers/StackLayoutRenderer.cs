@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +42,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
         protected override void Appearing()
         {
             base.Appearing();
-            //Element.Layout(new Rectangle(0, 0, Control.ActualWidth, Control.ActualHeight));
+            Element.Layout(new Rectangle(0, 0, Control.Bounds.Width, Control.Bounds.Height));
         }
 
         void HandleChildAdded(object sender, ElementEventArgs e)
@@ -120,7 +122,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             base.OnElementPropertyChanged(sender, e);
 
             if (e.PropertyName == Layout.IsClippedToBoundsProperty.PropertyName)
+            {
                 UpdateClipToBounds();
+            }
         }
 
         protected override void UpdateBackground()
@@ -137,8 +141,10 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
         void UpdateClipToBounds()
         {
             Control.Clip = null;
-            //if (Element.IsClippedToBounds)
-            //    Control.Clip = new RectangleGeometry { Rect = new Rect(0, 0, Control.ActualWidth, Control.ActualHeight) };
+            if (Element.IsClippedToBounds)
+            {
+                Control.Clip = new RectangleGeometry { Rect = new Rect(0, 0, Control.Bounds.Width, Control.Bounds.Height) };
+            }
         }
 
         bool _isDisposed;

@@ -12,36 +12,15 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         public FormsApplicationPage()
         {
-            this.Initialized += FormsApplicationPage_Initialized;
-            this.Activated += FormsApplicationPage_Activated;
-            this.LayoutUpdated += FormsApplicationPage_LayoutUpdated;
-            this.PositionChanged += FormsApplicationPage_PositionChanged;
-            this.GotFocus += FormsApplicationPage_GotFocus;
-            //MessagingCenter.Send(this, WPFDeviceInfo.BWPorientationChangedName, this.ToDeviceOrientation());
-            //SizeChanged += OnOrientationChanged;
+            Avalonia.Application.Current.OnExit += CurrentApplication_OnExit;
+
+            MessagingCenter.Send(this, AvaloniaUIDeviceInfo.BWPorientationChangedName, this.ToDeviceOrientation());
+            this.LayoutUpdated += (sender, e) =>
+            {
+                MessagingCenter.Send(this, AvaloniaUIDeviceInfo.BWPorientationChangedName, this.ToDeviceOrientation());
+            };
 
             this.ContentLoader = new FormsContentLoader();
-        }
-
-        private void FormsApplicationPage_GotFocus(object sender, Avalonia.Input.GotFocusEventArgs e)
-        {
-        }
-
-        private void FormsApplicationPage_PositionChanged(object sender, Avalonia.Controls.PointEventArgs e)
-        {
-        }
-
-        private void FormsApplicationPage_LayoutUpdated(object sender, EventArgs e)
-        {
-        }
-
-        private void FormsApplicationPage_Initialized(object sender, EventArgs e)
-        {
-        }
-
-        private void FormsApplicationPage_Activated(object sender, EventArgs e)
-        {
-            SetMainPage();
         }
 
         public void LoadApplication(Application application)
@@ -52,6 +31,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             application.SendStart();
         }
 
+        protected override void Appearing()
+        {
+            base.Appearing();
+            SetMainPage();
+        }
+
         private void Application_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "MainPage" && IsActive)
@@ -60,14 +45,41 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             }
         }
 
-
-        private void SetMainPage()
+        protected virtual void SetMainPage()
         {
             if (Platform == null)
             {
                 Platform = new Platform(this);
             }
             Platform.SetPage(Application.MainPage);
+        }
+
+        // when app gets tombstoned, user press back past first page
+        //void OnClosing(object sender, ExitEventArgs e)
+        //{
+        //    Application.SendSleep();
+        //}
+
+        //void OnLaunching(object sender, StartupEventArgs e)
+        //{
+        //    Application.SendStart();
+        //}
+        
+
+        void OnActivated(object sender, System.EventArgs e)
+        {
+            // TODO : figure out consistency of get this to fire
+            // Check whether tombstoned (terminated, but OS retains information about navigation state and state dictionarys) or dormant
+            Application.SendResume();
+        }
+
+        void OnDeactivated(object sender, System.EventArgs e)
+        {
+            Application.SendSleep();
+        }
+
+        private void CurrentApplication_OnExit(object sender, EventArgs e)
+        {
         }
     }
 }

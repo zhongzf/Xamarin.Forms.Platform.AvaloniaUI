@@ -29,7 +29,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Controls
         public FormsContentControl()
         {
             //this.DefaultStyleKey = typeof(FormsContentControl);
-            //this.SizeChanged += LightContentControl_SizeChanged;
+            BoundsProperty.Changed.AddClassHandler<FormsContentControl>(x => x.LightContentControl_SizeChanged);
             this.LayoutUpdated += FormsContentControl_LayoutUpdated;
         }
 
@@ -38,10 +38,10 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Controls
             this.ContentLoader.OnSizeContentChanged(this, Source);
         }
 
-        //private void LightContentControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //	this.ContentLoader.OnSizeContentChanged(this, Source);
-        //}
+        private void LightContentControl_SizeChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            this.ContentLoader.OnSizeContentChanged(this, Source);
+        }
 
         private static void OnContentLoaderChanged(AvaloniaObject o, AvaloniaPropertyChangedEventArgs e)
         {
