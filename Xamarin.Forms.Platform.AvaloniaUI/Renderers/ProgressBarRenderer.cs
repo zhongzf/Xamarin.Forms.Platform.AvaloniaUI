@@ -14,11 +14,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
 					SetNativeControl(new AProgressBar { Minimum = 0, Maximum = 1 });
-					//Control.ValueChanged += HandleValueChanged;
-				}
+                    // TODO: 
+                    //Control.ValueChanged += HandleValueChanged;
+                }
 
-				// Update control property 
-				UpdateProgress();
+                // Update control property 
+                UpdateProgress();
 				UpdateProgressColor();
 			}
 
@@ -37,6 +38,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
 		void UpdateProgressColor()
 		{
+            // TODO: 
             //Control.UpdateDependencyColor(WProgressBar.ForegroundProperty, Element.ProgressColor.IsDefault ? Color.DeepSkyBlue : Element.ProgressColor);
         }
 

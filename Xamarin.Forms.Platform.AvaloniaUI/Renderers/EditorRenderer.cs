@@ -23,6 +23,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                         TextWrapping = TextWrapping.Wrap,
                         AcceptsReturn = true
                     });
+                    // TODO: 
                     //Control.LostFocus += NativeOnLostFocus; 
                     //Control.TextChanged += NativeOnTextChanged;
                 }

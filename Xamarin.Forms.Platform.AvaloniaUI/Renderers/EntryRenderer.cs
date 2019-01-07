@@ -23,7 +23,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 {
                     SetNativeControl(new ATextBox());
                     Control.LostFocus += OnTextBoxUnfocused;
-                    //Control.TextChanged += TextBoxOnTextChanged;
+                    // TODO: 
+                    ATextBox.TextProperty.Changed.AddClassHandler<EntryRenderer>(x => x.TextBoxOnTextChanged);
                     Control.KeyUp += TextBoxOnKeyUp;
                 }
 
@@ -96,25 +97,25 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 ((IEntryController)Element).SendCompleted();
         }
 
-        //void TextBoxOnTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs textChangedEventArgs)
-        //{
-        //	// Signal to the UpdateText method that the change to TextProperty doesn't need to update the control
-        //	// This prevents the cursor position from getting lost
-        //	_ignoreTextChange = true;
-        //	((IElementController)Element).SetValueFromRenderer(Entry.TextProperty, Control.Text);
+        void TextBoxOnTextChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            // Signal to the UpdateText method that the change to TextProperty doesn't need to update the control
+            // This prevents the cursor position from getting lost
+            _ignoreTextChange = true;
+            ((IElementController)Element).SetValueFromRenderer(Entry.TextProperty, Control.Text);
 
-        //	// If an Entry.TextChanged handler modified the value of the Entry's text, the values could now be 
-        //	// out-of-sync; re-sync them and force the TextBox cursor to the end of the text
-        //	string entryText = Element.Text;
-        //	if (Control.Text != entryText)
-        //	{
-        //		Control.Text = entryText;
-        //		if (Control.Text != null)
-        //			Control.SelectionStart = Control.Text.Length;
-        //	}
+            // If an Entry.TextChanged handler modified the value of the Entry's text, the values could now be 
+            // out-of-sync; re-sync them and force the TextBox cursor to the end of the text
+            string entryText = Element.Text;
+            if (Control.Text != entryText)
+            {
+                Control.Text = entryText;
+                if (Control.Text != null)
+                    Control.SelectionStart = Control.Text.Length;
+            }
 
-        //	_ignoreTextChange = false;
-        //}
+            _ignoreTextChange = false;
+        }
 
         void UpdateAlignment()
         {

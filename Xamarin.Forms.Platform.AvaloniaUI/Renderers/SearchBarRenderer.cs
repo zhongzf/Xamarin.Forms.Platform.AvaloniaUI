@@ -28,6 +28,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                         //InputScope = scope
                     });
                     Control.KeyUp += PhoneTextBoxOnKeyUp;
+                    // TODO: 
                     //Control.TextChanged += PhoneTextBoxOnTextChanged;
                 }
 

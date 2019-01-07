@@ -56,6 +56,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         void UpdateTextColor()
         {
+            // TODO: 
             //Control.UpdateDependencyColor(ComboBox.ForegroundProperty, Element.TextColor);
         }
 

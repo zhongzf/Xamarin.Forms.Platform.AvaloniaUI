@@ -5,6 +5,7 @@
 	using System.Threading.Tasks;
 	using Avalonia;
     using Avalonia.Controls;
+    using Avalonia.Threading;
 
     public interface IContentLoader
 	{
@@ -17,10 +18,12 @@
 	{
 		public Task<object> LoadContentAsync(Control parent, object oldContent, object newContent, CancellationToken cancellationToken)
 		{
-			//if (!Application.Current.Dispatcher.CheckAccess())
-			//	throw new InvalidOperationException("UIThreadRequired");
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                throw new InvalidOperationException("UIThreadRequired");
+            }
 
-			var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 			return Task.Factory.StartNew(() => LoadContent(newContent), cancellationToken, TaskCreationOptions.None, scheduler);
 		}
 
@@ -28,19 +31,20 @@
 		{
 			if (content is Control)
 				return content;
+   
+            // TODO: 
+            //if (content is Uri)
+            //    return Application.LoadComponent(content as Uri);
 
-			//if (content is Uri)
-			//	return Application.LoadComponent(content as Uri);
+            //if (content is string)
+            //{
+            //    if (Uri.TryCreate(content as string, UriKind.RelativeOrAbsolute, out Uri uri))
+            //    {
+            //        return Application.LoadComponent(uri);
+            //    }
+            //}
 
-			//if (content is string)
-			//{
-			//	if (Uri.TryCreate(content as string, UriKind.RelativeOrAbsolute, out Uri uri))
-			//	{
-			//		return Application.LoadComponent(uri);
-			//	}
-			//}
-
-			return null;
+            return null;
 		}
 
 		public void OnSizeContentChanged(Control parent, object page)

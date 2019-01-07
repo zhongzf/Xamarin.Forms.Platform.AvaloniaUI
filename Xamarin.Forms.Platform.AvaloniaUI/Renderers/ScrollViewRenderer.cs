@@ -37,6 +37,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 {
                     SetNativeControl(new ScrollViewer()
                     {
+                        // TODO: 
                         //IsManipulationEnabled = true,
                         //PanningMode = PanningMode.Both,
                         //	HorizontalScrollBarVisibility = e.NewElement.HorizontalScrollBarVisibility.ToAvaloniaScrollBarVisibility(),

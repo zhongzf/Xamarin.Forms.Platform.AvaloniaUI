@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,13 @@ namespace Xamarin.Forms.Sample
         
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            Console.WriteLine("test");
+            Debug.WriteLine("test");
             Application.Current.Quit();
+        }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Debug.WriteLine(e.NewTextValue);
         }
     }
 }

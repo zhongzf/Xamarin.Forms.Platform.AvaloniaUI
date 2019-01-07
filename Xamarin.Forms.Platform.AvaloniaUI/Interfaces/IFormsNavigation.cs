@@ -67,10 +67,11 @@
 
 		public void PopModal(bool animated)
 		{
-			//ParentWindow?.PopModal(animated);
-		}
+            // TODO: 
+            //ParentWindow?.PopModal(animated);
+        }
 
-		public void PopToRoot()
+        public void PopToRoot()
 		{
 			PopToRoot(true);
 		}
@@ -98,10 +99,11 @@
 
 		public void PushModal(object page, bool animated)
 		{
-			//ParentWindow?.PushModal(page, animated);
-		}
+            // TODO: 
+            //ParentWindow?.PushModal(page, animated);
+        }
 
-		public void RemovePage(object page)
+        public void RemovePage(object page)
 		{
 			throw new InvalidOperationException(
 				"RemovePage is not supported globally on Windows, please use a LightNavigationPage.");

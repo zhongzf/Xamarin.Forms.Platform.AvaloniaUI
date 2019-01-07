@@ -13,20 +13,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 {
 	public class TimePickerRenderer : ViewRenderer<Xamarin.Forms.TimePicker, FormsTimePicker>
 	{
-		Brush _defaultBrush;
+		IBrush _defaultBrush;
 		bool _fontApplied;
 		FontFamily _defaultFontFamily;
-
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && Control != null)
-			{
-				Control.TimeChanged -= OnControlTimeChanged;
-				//Control.Loaded -= ControlOnLoaded;
-			}
-
-			base.Dispose(disposing);
-		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.TimePicker> e)
 		{
@@ -40,20 +29,36 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 					SetNativeControl(picker);
 
 					Control.TimeChanged += OnControlTimeChanged;
-					//Control.Loaded += ControlOnLoaded;
-				}
+                    Control.AttachedToLogicalTree += Control_AttachedToLogicalTree;
+                }
 
-				UpdateTime();
+                UpdateTime();
 				UpdateFlowDirection();
 				UpdateTimeFormat();
 			}
 		}
 
-		void ControlOnLoaded(object sender, RoutedEventArgs routedEventArgs)
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && Control != null)
+			{
+				Control.TimeChanged -= OnControlTimeChanged;
+                Control.AttachedToLogicalTree -= Control_AttachedToLogicalTree;
+            }
+
+			base.Dispose(disposing);
+		}
+
+        private void Control_AttachedToLogicalTree(object sender, Avalonia.LogicalTree.LogicalTreeAttachmentEventArgs e)
+        {
+            this.ControlOnLoaded(sender, null);
+        }
+
+        void ControlOnLoaded(object sender, RoutedEventArgs routedEventArgs)
 		{
 			// The defaults from the control template won't be available
 			// right away; we have to wait until after the template has been applied
-			//_defaultBrush = Control.Foreground;
+			_defaultBrush = Control.BorderBrush;
 			_defaultFontFamily = Control.FontFamily;
 			UpdateFont();
 			UpdateTextColor();

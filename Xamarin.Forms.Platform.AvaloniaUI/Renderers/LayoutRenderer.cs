@@ -104,6 +104,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 if (childRenderer == null)
                     continue;
 
+                // TODO: 
                 //if (Canvas.GetZIndex(childRenderer.GetNativeElement()) != (z + 1))
                 //{
                 //	if (!_isZChanged)

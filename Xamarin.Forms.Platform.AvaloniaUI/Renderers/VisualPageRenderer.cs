@@ -54,11 +54,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
 		void UpdateTitle()
 		{
-			//if (!string.IsNullOrWhiteSpace(Element.Title))
-				//Control.Title = Element.Title;
-		}
+            // TODO: 
+            //if (!string.IsNullOrWhiteSpace(Element.Title))
+            //Control.Title = Element.Title;
+        }
 
-		void UpdateBackButton()
+        void UpdateBackButton()
 		{
 			//this.Control.HasBackButton = NavigationPage.GetHasBackButton(Element);
 		}
@@ -80,8 +81,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				ImageBrush imgBrush = new ImageBrush()
 				{
-					//ImageSource = new BitmapImage(new Uri(bgImage, UriKind.RelativeOrAbsolute))
-				};
+                    // TODO: 
+                    //ImageSource = new BitmapImage(new Uri(bgImage, UriKind.RelativeOrAbsolute))
+                };
 				Control.Background = imgBrush;
 			}
 			else

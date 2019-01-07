@@ -63,33 +63,35 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
 		protected override void UpdateBackground()
 		{
-			//Control.UpdateDependencyColor(TextBlock.BackgroundProperty, Element.BackgroundColor);
-		}
+            // TODO: 
+            //Control.UpdateDependencyColor(TextBlock.BackgroundProperty, Element.BackgroundColor);
+        }
 
-		void UpdateTextDecorations()
+        void UpdateTextDecorations()
 		{
 			if (!Element.IsSet(Label.TextDecorationsProperty))
 				return;
 
 			var textDecorations = Element.TextDecorations;
 
-			//var newTextDecorations = new Avalonia.TextDecorationCollection(Control.TextDecorations);
+            // TODO: 
+            //var newTextDecorations = new Avalonia.TextDecorationCollection(Control.TextDecorations);
 
-			//if ((textDecorations & TextDecorations.Underline) == 0)
-			//	newTextDecorations.TryRemove(Avalonia.TextDecorations.Underline, out newTextDecorations);
-			//else
-			//	newTextDecorations.Add(Avalonia.TextDecorations.Underline);
+            //if ((textDecorations & TextDecorations.Underline) == 0)
+            //	newTextDecorations.TryRemove(Avalonia.TextDecorations.Underline, out newTextDecorations);
+            //else
+            //	newTextDecorations.Add(Avalonia.TextDecorations.Underline);
 
-			//if ((textDecorations & TextDecorations.Strikethrough) == 0)
-			//	newTextDecorations.TryRemove(Avalonia.TextDecorations.Strikethrough, out newTextDecorations);
-			//else
-			//	newTextDecorations.Add(Avalonia.TextDecorations.Strikethrough);
+            //if ((textDecorations & TextDecorations.Strikethrough) == 0)
+            //	newTextDecorations.TryRemove(Avalonia.TextDecorations.Strikethrough, out newTextDecorations);
+            //else
+            //	newTextDecorations.Add(Avalonia.TextDecorations.Strikethrough);
 
-			//Control.TextDecorations = newTextDecorations;
-		}
+            //Control.TextDecorations = newTextDecorations;
+        }
 
 
-		void UpdateAlign()
+        void UpdateAlign()
 		{
 			if (Control == null)
 				return;

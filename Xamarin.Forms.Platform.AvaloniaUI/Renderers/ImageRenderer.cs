@@ -85,25 +85,27 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			IImageSourceHandler handler;
 			if (source != null && (handler = Registrar.Registered.GetHandlerForObject<IImageSourceHandler>(source)) != null)
 			{
-				//Avalonia.Media.ImageSource imagesource;
+                // TODO: 
+                /*
+                Avalonia.Media.ImageSource imagesource;
 
-				//try
-				//{
-				//	imagesource = await handler.LoadImageAsync(source);
-				//}
-				//catch (OperationCanceledException)
-				//{
-				//	imagesource = null;
-				//}
+                try
+                {
+                    imagesource = await handler.LoadImageAsync(source);
+                }
+                catch (OperationCanceledException)
+                {
+                    imagesource = null;
+                }
 
-				//// In the time it takes to await the imagesource, some zippy little app
-				//// might have disposed of this Image already.
-				//if (Control != null)
-				//{
-				//	Control.Source = imagesource;
-				//}
-
-				RefreshImage();
+                // In the time it takes to await the imagesource, some zippy little app
+                // might have disposed of this Image already.
+                if (Control != null)
+                {
+                    Control.Source = imagesource;
+                }
+                */
+                RefreshImage();
 			}
 			else
 			{

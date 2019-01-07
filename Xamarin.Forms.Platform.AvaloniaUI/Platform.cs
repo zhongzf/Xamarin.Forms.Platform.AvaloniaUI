@@ -58,6 +58,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
             var dialogResult = await dialog.ShowAsync();
 
+            // TODO: 
             //options.SetResult(dialogResult == LightContentDialogResult.Primary);
         }
 

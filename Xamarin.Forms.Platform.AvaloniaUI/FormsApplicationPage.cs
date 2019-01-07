@@ -54,6 +54,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             Platform.SetPage(Application.MainPage);
         }
 
+        // TODO: 
         // when app gets tombstoned, user press back past first page
         //void OnClosing(object sender, ExitEventArgs e)
         //{
@@ -64,7 +65,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
         //{
         //    Application.SendStart();
         //}
-        
+
 
         void OnActivated(object sender, System.EventArgs e)
         {

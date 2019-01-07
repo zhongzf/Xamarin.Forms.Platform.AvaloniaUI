@@ -18,11 +18,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
 					SetNativeControl(new ASlider());
-					//Control.ValueChanged += HandleValueChanged;
-				}
+                    // TODO: 
+                    //Control.ValueChanged += HandleValueChanged;
+                }
 
-				// Update control property 
-				UpdateMinimum();
+                // Update control property 
+                UpdateMinimum();
 				UpdateMaximum();
 				UpdateValue();
 			}

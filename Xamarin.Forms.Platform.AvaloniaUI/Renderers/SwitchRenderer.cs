@@ -18,12 +18,13 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 				if (Control == null) // construct and SetNativeControl and suscribe control event
 				{
 					SetNativeControl(new CheckBox());
-					//Control.Checked += OnNativeToggled;
-					//Control.Unchecked += OnNativeToggled;
-				}
+                    // TODO: 
+                    //Control.Checked += OnNativeToggled;
+                    //Control.Unchecked += OnNativeToggled;
+                }
 
-				// Update control property 
-				UpdateIsToggled();
+                // Update control property 
+                UpdateIsToggled();
 			}
 
 			base.OnElementChanged(e);
