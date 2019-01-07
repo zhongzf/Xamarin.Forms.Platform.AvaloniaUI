@@ -6,7 +6,7 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" HeightRequest="40" />
+        <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
         <Button Text="Test Button" HeightRequest="40" />
         <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
         <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
