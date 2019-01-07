@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -127,7 +128,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         public IIsolatedStorageFile GetUserStoreForApplication()
         {
-            throw new NotImplementedException();
+            return new AvaloniaUIIsolatedStorageFile(IsolatedStorageFile.GetUserStoreForAssembly());
         }
 
         public void OpenUriAction(Uri uri)
