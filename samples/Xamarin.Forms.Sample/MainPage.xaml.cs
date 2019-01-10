@@ -14,7 +14,7 @@ namespace Xamarin.Forms.Sample
         {
             InitializeComponent();
         }
-        
+
         async void OnButtonClicked(object sender, EventArgs args)
         {
             Debug.WriteLine("test");
@@ -24,6 +24,11 @@ namespace Xamarin.Forms.Sample
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
             Debug.WriteLine(e.NewTextValue);
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            webView.Source = "http://www.bing.com";
         }
     }
 }

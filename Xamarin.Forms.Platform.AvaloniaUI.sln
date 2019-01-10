@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication.Demo", "samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Sample", "samples\Xamarin.Forms.Sample\Xamarin.Forms.Sample.csproj", "{09B4836E-0E22-44A7-B5FD-389C237FA868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication.Demo", "samples\AvaloniaApplication.Demo\AvaloniaApplication.Demo.csproj", "{548C7976-7E4F-4474-BAEA-315A5EF52A88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaApplication.Demo", "samples\AvaloniaApplication.Demo\AvaloniaApplication.Demo.csproj", "{548C7976-7E4F-4474-BAEA-315A5EF52A88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CefGlue.Avalonia", "..\CefGlue.Core\CefGlue.Avalonia\CefGlue.Avalonia.csproj", "{EAA9206C-9870-4416-8A37-7C28A47259BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,22 @@ Global
 		{548C7976-7E4F-4474-BAEA-315A5EF52A88}.Release|x64.Build.0 = Release|Any CPU
 		{548C7976-7E4F-4474-BAEA-315A5EF52A88}.Release|x86.ActiveCfg = Release|Any CPU
 		{548C7976-7E4F-4474-BAEA-315A5EF52A88}.Release|x86.Build.0 = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|ARM.Build.0 = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|x64.Build.0 = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Debug|x86.Build.0 = Debug|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|ARM.Build.0 = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|x64.ActiveCfg = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|x64.Build.0 = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|x86.ActiveCfg = Release|Any CPU
+		{EAA9206C-9870-4416-8A37-7C28A47259BB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
