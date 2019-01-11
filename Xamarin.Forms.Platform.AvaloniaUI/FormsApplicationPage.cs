@@ -51,7 +51,10 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             {
                 Platform = new Platform(this);
             }
-            Platform.SetPage(Application.MainPage);
+            if (Application?.MainPage != null)
+            {
+                Platform.SetPage(Application.MainPage);
+            }
         }
 
         // TODO: 
