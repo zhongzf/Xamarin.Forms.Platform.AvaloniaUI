@@ -108,27 +108,27 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         void OnGoBackRequested(object sender, EventArgs eventArgs)
         {
-            //if (Control.CanGoBack)
-            //{
-            //    _eventState = WebNavigationEvent.Back;
-            //    Control.GoBack();
-            //}
+            if (Control.Browser.CanGoBack)
+            {
+                _eventState = WebNavigationEvent.Back;
+                Control.Browser.GoBack();
+            }
             UpdateCanGoBackForward();
         }
 
         void OnGoForwardRequested(object sender, EventArgs eventArgs)
         {
-            //if (Control.CanGoForward)
-            //{
-            //    _eventState = WebNavigationEvent.Forward;
-            //    Control.GoForward();
-            //}
+            if (Control.Browser.CanGoForward)
+            {
+                _eventState = WebNavigationEvent.Forward;
+                Control.Browser.GoForward();
+            }
             UpdateCanGoBackForward();
         }
 
         void OnReloadRequested(object sender, EventArgs eventArgs)
         {
-            //Control.Refresh();
+            Control.Browser.Reload();
         }
 
         void SendNavigated(UrlWebViewSource source, WebNavigationEvent evnt, WebNavigationResult result)
@@ -146,8 +146,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         void UpdateCanGoBackForward()
         {
-            //((IWebVieAController)Element).CanGoBack = Control.CanGoBack;
-            //((IWebVieAController)Element).CanGoForward = Control.CanGoForward;
+            ((IWebViewController)Element).CanGoBack = Control.Browser?.CanGoBack ?? false;
+            ((IWebViewController)Element).CanGoForward = Control.Browser?.CanGoForward ?? false;
         }
 
         //void WebBrowserOnNavigated(object sender, Avalonia.Navigation.NavigationEventArgs navigationEventArgs)

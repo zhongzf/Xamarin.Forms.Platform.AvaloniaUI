@@ -8,7 +8,7 @@
         <StackLayout>
             <!-- Place new controls here -->
             <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <WebView x:Name="webView" HeightRequest="600" Source="http://www.bing.com"></WebView>
+            <WebView x:Name="webView" HeightRequest="600" Source="file:///C:\Users\Johnson\Documents\GitHub\Xamarin.Forms.Platform.AvaloniaUI\samples\AvaloniaApplication.Demo\bin\Debug\netcoreapp2.0\app/index.html"></WebView>
             <Button Text="Test Button" HeightRequest="40" Clicked="Button_Clicked" />
             <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
             <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
