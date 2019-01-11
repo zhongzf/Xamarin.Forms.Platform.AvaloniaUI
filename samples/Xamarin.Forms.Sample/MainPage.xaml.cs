@@ -28,11 +28,6 @@ namespace Xamarin.Forms.Sample
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            //webView.Source = "http://www.bing.com";
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string startUrl = $"file:///{baseDirectory}app/index.html";
-            webView.Source = startUrl;
-            webView.Reload();
         }
     }
 }
