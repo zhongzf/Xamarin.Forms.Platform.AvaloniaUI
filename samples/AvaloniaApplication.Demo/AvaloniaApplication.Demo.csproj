@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.Platform.AvaloniaUI\Xamarin.Forms.Platform.AvaloniaUI.csproj" />
     <ProjectReference Include="..\Xamarin.Forms.Sample\Xamarin.Forms.Sample.csproj" />
+    <ProjectReference Include="..\Xamarin.Froms\Xamarin.Forms.Controls\Xamarin.Forms.Controls.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="App.xaml">

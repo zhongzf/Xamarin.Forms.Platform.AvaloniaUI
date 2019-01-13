@@ -12,12 +12,15 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 	{
 		public static object UpdateDependencyColor(this AvaloniaObject depo, AvaloniaProperty dp, Color newColor)
 		{
-			if (!newColor.IsDefault)
-				depo.SetValue(dp, newColor.ToBrush());
-			else
-				depo.ClearValue(dp);
+            // TODO: 
+            //if (!newColor.IsDefault)
+            //	depo.SetValue(dp, newColor.ToBrush());
+            //else
+            //	depo.ClearValue(dp);
 
-			return depo.GetValue(dp);
+            //return depo.GetValue(dp);
+            // TODO:
+            return null;
 		}
 
 		//internal static IEnumerable<T> GetChildren<T>(this AvaloniaObject parent) where T : AvaloniaObject

@@ -18,7 +18,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 if (Control == null) // construct and SetNativeControl and suscribe control event
                 {
                     SetNativeControl(new DropDown());
-                    Control.SelectionChanged += OnControlSelectionChanged;
+                    //Control.SelectionChanged += OnControlSelectionChanged;
                 }
 
                 // Update control property 
@@ -82,7 +82,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             {
                 if (Control != null)
                 {
-                    Control.SelectionChanged -= OnControlSelectionChanged;
+                    // TODO:
+                    //Control.SelectionChanged -= OnControlSelectionChanged;
                     Control.Items = null;
                 }
 

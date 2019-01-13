@@ -22,13 +22,13 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Controls
         Avalonia.Controls.Button hamburgerButton;
 
         public static readonly DirectProperty<FormsWindow, object> StartupPageProperty = AvaloniaProperty.RegisterDirect<FormsWindow, object>(nameof(StartupPage), o => o.StartupPage, (o, v) => o.StartupPage = v);
-        public static readonly AvaloniaProperty CurrentModalPageProperty;//= AvaloniaProperty.Register("CurrentModalPage", typeof(object), typeof(FormsWindow));
-        public static readonly DirectProperty<FormsWindow, IContentLoader> ContentLoaderProperty = AvaloniaProperty.RegisterDirect<FormsWindow, IContentLoader>(nameof(ContentLoader), o => o.ContentLoader, (o, v) => o.Content = v);
-        public static readonly AvaloniaProperty CurrentTitleProperty;//= AvaloniaProperty.Register("CurrentTitle", typeof(string), typeof(FormsWindow));
+        public static readonly DirectProperty<FormsWindow, IContentLoader> ContentLoaderProperty = AvaloniaProperty.RegisterDirect<FormsWindow, IContentLoader>(nameof(ContentLoader), o => o.ContentLoader, (o, v) => o.ContentLoader = v);
         public static readonly AvaloniaProperty HasBackButtonProperty;//= AvaloniaProperty.Register("HasBackButton", typeof(bool), typeof(FormsWindow));
         public static readonly AvaloniaProperty HasBackButtonModalProperty;//= AvaloniaProperty.Register("HasBackButtonModal", typeof(bool), typeof(FormsWindow));
         public static readonly AvaloniaProperty HasNavigationBarProperty;//= AvaloniaProperty.Register("HasNavigationBar", typeof(bool), typeof(FormsWindow));
         public static readonly AvaloniaProperty BackButtonTitleProperty;//= AvaloniaProperty.Register("BackButtonTitle", typeof(string), typeof(FormsWindow));
+        public static readonly AvaloniaProperty CurrentTitleProperty;//= AvaloniaProperty.Register("CurrentTitle", typeof(string), typeof(FormsWindow));
+        public static readonly AvaloniaProperty CurrentModalPageProperty;//= AvaloniaProperty.Register("CurrentModalPage", typeof(object), typeof(FormsWindow));
         public static readonly AvaloniaProperty CurrentNavigationPageProperty;//= AvaloniaProperty.Register("CurrentNavigationPage", typeof(FormsNavigationPage), typeof(FormsWindow));
         public static readonly AvaloniaProperty CurrentMasterDetailPageProperty;//= AvaloniaProperty.Register("CurrentMasterDetailPage", typeof(FormsMasterDetailPage), typeof(FormsWindow));
         public static readonly AvaloniaProperty CurrentContentDialogProperty;//= AvaloniaProperty.Register("CurrentContentDialog", typeof(FormsContentDialog), typeof(FormsWindow));

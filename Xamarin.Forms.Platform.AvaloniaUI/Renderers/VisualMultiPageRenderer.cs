@@ -20,8 +20,9 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
 			if (e.NewElement != null)
 			{
-				// Subscribe control event
-				Control.SelectionChanged += Control_SelectionChanged;
+                // TODO:
+                // Subscribe control event
+                //Control.SelectionChanged += Control_SelectionChanged;
 				
 				// Subscribe element event
 				((INotifyCollectionChanged)Element.Children).CollectionChanged += OnPagesChanged;
@@ -55,10 +56,10 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			Control.SelectedItem = Element.CurrentPage;
 		}
 		
-		private void Control_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			Element.CurrentPage = e.NewElement as TContainer;
-		}
+		//private void Control_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		//{
+		//	Element.CurrentPage = e.NewElement as TContainer;
+		//}
 
 		bool _isDisposed;
 
@@ -71,7 +72,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control != null)
 				{
-					Control.SelectionChanged -= Control_SelectionChanged;
+                    // TODO:
+					//Control.SelectionChanged -= Control_SelectionChanged;
 				}
 
 				if (Element != null)
