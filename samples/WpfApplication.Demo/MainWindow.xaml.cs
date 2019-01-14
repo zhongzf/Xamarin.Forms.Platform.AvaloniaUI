@@ -25,9 +25,9 @@ namespace WpfApplication.Demo
         {
             InitializeComponent();
             Xamarin.Forms.Forms.Init();
-            //LoadApplication(new Xamarin.Forms.Sample.App());
+            LoadApplication(new Xamarin.Forms.Sample.App());
             //LoadApplication(new Xamarin.Forms.Controls.SimpleApp());
-            LoadApplication(new Xamarin.Forms.Controls.App());
+            //LoadApplication(new Xamarin.Forms.Controls.App());
         }
     }
 }

@@ -4,54 +4,18 @@
              xmlns:local="clr-namespace:Xamarin.Forms.Sample"
              x:Class="Xamarin.Forms.Sample.MainPage">
 
-    <ScrollView>
-        <StackLayout>
-            <!-- Place new controls here -->
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" Clicked="Button_Clicked" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-        </StackLayout>
-    </ScrollView>
+    <RelativeLayout>
+        <Label x:Name="label1" Text="Label 1" 
+        BackgroundColor="Blue" WidthRequest="200" HeightRequest="200" 
+        RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent,Property=X,Factor=1,Constant=100}" 
+        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent,Property=Y,Factor=1,Constant=100}"/>
+
+        <Label Text="Label 2" BackgroundColor="Red" 
+        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X,Factor=1,Constant=0}"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Y,Factor=2,Constant=200}"
+        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Width,Factor=2,Constant=0}"
+        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Height,Factor=0.5,Constant=0}"/>
+    </RelativeLayout>
+
 
 </ContentPage>
