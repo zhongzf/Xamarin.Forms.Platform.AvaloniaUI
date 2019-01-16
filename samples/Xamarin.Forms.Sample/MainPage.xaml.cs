@@ -14,6 +14,7 @@ namespace Xamarin.Forms.Sample
         {
             InitializeComponent();
 
+            //webView.Source = "http://www.bing.com";
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string startUrl = $"file:///{baseDirectory}app/index.html";
             webView.Source = startUrl;

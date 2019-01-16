@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <!--<TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>-->
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
   </PropertyGroup>
@@ -18,13 +18,19 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.7.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
-    <PackageReference Include="VitalElement.CefGlue.Core.Win-x64" Version="0.9.0-build30-alpha" />
+    <PackageReference Include="VitalElement.CefGlue.Core" Version="0.9.0-build32-alpha" />
+    <PackageReference Include="VitalElement.CefGlue.Core.Avalonia" Version="0.9.0-build32-alpha" />
+    <PackageReference Include="VitalElement.CefGlue.Core.Win-x64" Version="0.9.0-build32-alpha" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.Platform.AvaloniaUI\Xamarin.Forms.Platform.AvaloniaUI.csproj" />
     <ProjectReference Include="..\Xamarin.Forms.Sample\Xamarin.Forms.Sample.csproj" />
+    <ProjectReference Include="..\Xamarin.Froms\Xamarin.Forms.Controls\Xamarin.Forms.Controls.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="app\1.63f7efa4bf62bc14ad80.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -720,6 +726,9 @@
     </None>
     <None Update="app\styles.77ffc6e32d2c0b6dd06d.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
 </Project>
