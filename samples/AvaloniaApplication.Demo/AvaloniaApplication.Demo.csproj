@@ -20,7 +20,6 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CefGlue.Core\CefGlue.Avalonia\CefGlue.Avalonia.csproj" />
     <ProjectReference Include="..\..\Xamarin.Forms.Platform.AvaloniaUI\Xamarin.Forms.Platform.AvaloniaUI.csproj" />
     <ProjectReference Include="..\Xamarin.Forms.Sample\Xamarin.Forms.Sample.csproj" />
   </ItemGroup>

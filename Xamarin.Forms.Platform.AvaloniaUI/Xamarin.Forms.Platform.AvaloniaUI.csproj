@@ -7,11 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.7.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
+    <PackageReference Include="VitalElement.CefGlue.Core" Version="0.9.0-build30-alpha" />
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CefGlue.Core\CefGlue.Avalonia\CefGlue.Avalonia.csproj" />
+    <ProjectReference Include="..\CefGlue.Avalonia\CefGlue.Avalonia.csproj" />
   </ItemGroup>
 
 </Project>

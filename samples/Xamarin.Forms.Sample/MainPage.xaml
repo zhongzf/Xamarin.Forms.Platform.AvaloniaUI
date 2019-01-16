@@ -4,55 +4,8 @@
              xmlns:local="clr-namespace:Xamarin.Forms.Sample"
              x:Class="Xamarin.Forms.Sample.MainPage">
 
-    <ScrollView>
-        <StackLayout>
-            <!-- Place new controls here -->
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <WebView x:Name="webView" HeightRequest="600" Source="file:///C:\Users\Johnson\Documents\GitHub\Xamarin.Forms.Platform.AvaloniaUI\samples\AvaloniaApplication.Demo\bin\Debug\netcoreapp2.0\app/index.html"></WebView>
-            <Button Text="Test Button" HeightRequest="40" Clicked="Button_Clicked" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-            <Label Text="Welcome to Xamarin.Forms on AvaloniaUI!" HeightRequest="40" />
-            <Button Text="Test Button" HeightRequest="40" />
-            <Entry Placeholder="Entry test" HeightRequest="40" TextChanged="Entry_TextChanged"  />
-            <Button Text="Quit Application" Clicked="OnButtonClicked"  HeightRequest="40"  />
-            <Editor  HeightRequest="40" />
-            <Picker  HeightRequest="40" />
-            <ProgressBar  HeightRequest="40"  />
-            <Slider HeightRequest="40" ></Slider>
-            <Stepper  HeightRequest="40"  />
-            <Switch  HeightRequest="40" />
-            <TimePicker HeightRequest="40" ></TimePicker>
-        </StackLayout>
-    </ScrollView>
+    <StackLayout>
+        <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>
+    </StackLayout>
 
 </ContentPage>
