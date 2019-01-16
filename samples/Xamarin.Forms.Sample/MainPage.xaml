@@ -5,6 +5,11 @@
              x:Class="Xamarin.Forms.Sample.MainPage">
 
     <StackLayout>
+        <StackLayout HeightRequest="40" Spacing="5" Orientation="Horizontal">
+            <Button Text="Home" Clicked="Button_Clicked" HeightRequest="40" WidthRequest="80"></Button>
+            <Button Text="Back" Clicked="Button_Back_Clicked"  HeightRequest="40" WidthRequest="80"></Button>
+            <Button Text="Forward" Clicked="Button_Forward_Clicked" HeightRequest="40" WidthRequest="80"></Button>
+        </StackLayout>
         <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>
     </StackLayout>
 

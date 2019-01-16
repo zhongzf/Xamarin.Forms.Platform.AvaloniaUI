@@ -18,6 +18,28 @@ namespace Xamarin.Forms.Sample
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string startUrl = $"file:///{baseDirectory}app/index.html";
             webView.Source = startUrl;
-        }        
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            //webView.Eval("alert('test');");
+            webView.Source = "http://www.bing.com";
+        }
+
+        private void Button_Back_Clicked(object sender, EventArgs e)
+        {
+            webView.GoBack();
+        }
+
+        private void Button_Forward_Clicked(object sender, EventArgs e)
+        {
+            webView.GoForward();
+        }
+
+        private void Button_Test_Clicked(object sender, EventArgs e)
+        {
+            //webView.Eval("eval('alert(1);')");
+            webView.Eval("console.log(1);");
+        }
     }
 }

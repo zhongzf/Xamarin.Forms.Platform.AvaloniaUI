@@ -9,6 +9,7 @@ using Avalonia.Controls;
 using Avalonia.Threading;
 using CefGlue.Avalonia;
 using Xamarin.Forms.Internals;
+using Xilium.CefGlue;
 
 namespace Xamarin.Forms.Platform.AvaloniaUI
 {
@@ -33,8 +34,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 if (Control == null) // construct and SetNativeControl and suscribe control event
                 {
                     SetNativeControl(new AvaloniaCefBrowser());
-                    //Control.Navigated += WebBrowserOnNavigated;
-                    //Control.Navigating += WebBrowserOnNavigating;
+                    Control.LoadStart += Control_LoadStart;
+                    Control.LoadEnd += Control_LoadEnd;
                 }
 
                 // Update control property 
@@ -49,6 +50,29 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             }
 
             base.OnElementChanged(e);
+        }
+
+        private void Control_LoadStart(object sender, LoadStartEventArgs e)
+        {
+            if (e.Frame.Url == null) return;
+
+            string url = e.Frame.Url;
+            var args = new WebNavigatingEventArgs(_eventState, new UrlWebViewSource { Url = url }, url);
+
+            Element.SendNavigating(args);
+
+            //navigatingEventArgs.Cancel = args.Cancel;
+
+            // reset in this case because this is the last event we will get
+            if (args.Cancel)
+                _eventState = WebNavigationEvent.NewPage;
+        }
+
+        private void Control_LoadEnd(object sender, LoadEndEventArgs e)
+        {
+            string url = e.Frame.Url;
+            SendNavigated(new UrlWebViewSource { Url = url }, _eventState, WebNavigationResult.Success);
+            UpdateCanGoBackForward();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -75,7 +99,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             if (html == null)
                 return;
 
-            //Control.NavigateToString(html);
+            Control.Browser.GetMainFrame().LoadString(html, baseUrl);
         }
 
         public void LoadUrl(string url)
@@ -84,13 +108,31 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                 return;
 
             //Control.Source = new Uri(url, UriKind.RelativeOrAbsolute);
-            Control.StartUrl = url;
+            if (Control.Browser != null && Control.Browser?.GetMainFrame() != null)
+            {
+                Control.Browser.GetMainFrame().LoadUrl(url);
+            }
+            else
+            {
+                Control.StartUrl = url;
+            }
         }
 
 
         void OnEvalRequested(object sender, EvalRequested eventArg)
         {
             //Control.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => Control.InvokeScript("eval", eventArg.Script)));
+            //Control.Browser.GetMainFrame().ExecuteJavaScript(eventArg.Script, Control.StartUrl, 0);
+            //var context = frame.V8Context;
+            //context.Enter();
+            //context.TryEval(eventArg.Script, string.Empty, 0, out CefV8Value returnValue, out CefV8Exception exception);
+            //context.Exit();
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                var browser = Control.Browser;
+                var frame = browser.GetMainFrame();
+                frame.ExecuteJavaScript(eventArg.Script, frame.Url, 0);
+            });
         }
 
         async Task<string> OnEvaluateJavaScriptRequested(string script)
@@ -100,6 +142,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
             Device.BeginInvokeOnMainThread(() =>
             {
+                // TODO: 
                 //tcr.SetResult((string)Control.InvokeScript("eval", new[] { script }));
             });
 
@@ -150,38 +193,6 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             ((IWebViewController)Element).CanGoForward = Control.Browser?.CanGoForward ?? false;
         }
 
-        //void WebBrowserOnNavigated(object sender, Avalonia.Navigation.NavigationEventArgs navigationEventArgs)
-        //{
-        //    if (navigationEventArgs.Uri == null) return;
-
-        //    string url = navigationEventArgs.Uri.IsAbsoluteUri ? navigationEventArgs.Uri.AbsoluteUri : navigationEventArgs.Uri.OriginalString;
-        //    SendNavigated(new UrlWebViewSource { Url = url }, _eventState, WebNavigationResult.Success);
-        //    UpdateCanGoBackForward();
-        //}
-
-        //void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs navigatingEventArgs)
-        //{
-        //    if (navigatingEventArgs.Uri == null) return;
-
-        //    string url = navigatingEventArgs.Uri.IsAbsoluteUri ? navigatingEventArgs.Uri.AbsoluteUri : navigatingEventArgs.Uri.OriginalString;
-        //    var args = new WebNavigatingEventArgs(_eventState, new UrlWebViewSource { Url = url }, url);
-
-        //    Element.SendNavigating(args);
-
-        //    navigatingEventArgs.Cancel = args.Cancel;
-
-        //    // reset in this case because this is the last event we will get
-        //    if (args.Cancel)
-        //        _eventState = WebNavigationEvent.NewPage;
-        //}
-
-        //void WebBrowserOnNavigationFailed(object sender, NavigationFailedEventArgs navigationFailedEventArgs)
-        //{
-        //    if (navigationFailedEventArgs.Uri == null) return;
-
-        //    string url = navigationFailedEventArgs.Uri.IsAbsoluteUri ? navigationFailedEventArgs.Uri.AbsoluteUri : navigationFailedEventArgs.Uri.OriginalString;
-        //    SendNavigated(new UrlWebViewSource { Url = url }, _eventState, WebNavigationResult.Failure);
-        //}
 
         bool _isDisposed;
 
@@ -194,10 +205,10 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             {
                 if (Control != null)
                 {
-                    //Control.Navigated -= WebBrowserOnNavigated;
-                    //Control.Navigating -= WebBrowserOnNavigating;
-                    //Control.Source = null;
-                    //Control.Dispose();
+                    Control.LoadStart -= Control_LoadStart;
+                    Control.LoadEnd -= Control_LoadEnd;
+                    Control.StartUrl = null;
+                    Control.Browser.Dispose();
                 }
 
                 if (Element != null)
