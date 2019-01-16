@@ -4,18 +4,8 @@
              xmlns:local="clr-namespace:Xamarin.Forms.Sample"
              x:Class="Xamarin.Forms.Sample.MainPage">
 
-    <RelativeLayout>
-        <Label x:Name="label1" Text="Label 1" 
-        BackgroundColor="Blue" WidthRequest="200" HeightRequest="200" 
-        RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent,Property=X,Factor=1,Constant=100}" 
-        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent,Property=Y,Factor=1,Constant=100}"/>
-
-        <Label Text="Label 2" BackgroundColor="Red" 
-        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=X,Factor=1,Constant=0}"
-        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Y,Factor=2,Constant=200}"
-        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Width,Factor=2,Constant=0}"
-        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView,ElementName=label1,Property=Height,Factor=0.5,Constant=0}"/>
-    </RelativeLayout>
-
+    <StackLayout>
+        <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>
+    </StackLayout>
 
 </ContentPage>

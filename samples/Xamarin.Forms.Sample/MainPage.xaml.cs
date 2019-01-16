@@ -13,21 +13,10 @@ namespace Xamarin.Forms.Sample
         public MainPage()
         {
             InitializeComponent();
-        }
 
-        async void OnButtonClicked(object sender, EventArgs args)
-        {
-            Debug.WriteLine("test");
-            Application.Current.Quit();
-        }
-
-        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Debug.WriteLine(e.NewTextValue);
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-        }
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string startUrl = $"file:///{baseDirectory}app/index.html";
+            webView.Source = startUrl;
+        }        
     }
 }
