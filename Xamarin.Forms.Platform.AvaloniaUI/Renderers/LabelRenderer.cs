@@ -63,8 +63,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
 		protected override void UpdateBackground()
 		{
-            // TODO: 
-            //Control.UpdateDependencyColor(TextBlock.BackgroundProperty, Element.BackgroundColor);
+            Control.Background = Element.BackgroundColor.ToBrush();
         }
 
         void UpdateTextDecorations()

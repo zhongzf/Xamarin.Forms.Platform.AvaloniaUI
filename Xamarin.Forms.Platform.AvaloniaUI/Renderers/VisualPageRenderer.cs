@@ -114,9 +114,10 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 				{
 					if (appBar.DataContext is ToolbarItem toolbarItem)
 					{
-						toolbarItem.Activate();
-					}
-				};
+                        // TODO:
+                        //toolbarItem.Activate();
+                    }
+                };
 
 				//if (item.Order == ToolbarItemOrder.Default || item.Order == ToolbarItemOrder.Primary)
 				//	Control.PrimaryTopBarCommands.Add(appBar);

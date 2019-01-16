@@ -27,18 +27,19 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Controls
 
 		public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 
-		public static readonly AvaloniaProperty ContentLoaderProperty;// = AvaloniaProperty.Register("ContentLoader", typeof(IContentLoader), typeof(FormsMultiPage), new PropertyMetadata(new DefaultContentLoader()));
+        public static readonly DirectProperty<FormsMultiPage, IContentLoader> ContentLoaderProperty = AvaloniaProperty.RegisterDirect<FormsMultiPage, IContentLoader>(nameof(ContentLoader), o => o.ContentLoader, (o, v) => o.ContentLoader = v);
         public static readonly AvaloniaProperty ItemsSourceProperty;// = AvaloniaProperty.Register("ItemsSource", typeof(ObservableCollection<object>), typeof(FormsMultiPage));
         public static readonly AvaloniaProperty SelectedItemProperty;// = AvaloniaProperty.Register("SelectedItem", typeof(object), typeof(FormsMultiPage), new PropertyMetadata(OnSelectedItemChanged));
         public static readonly AvaloniaProperty SelectedIndexProperty;// = AvaloniaProperty.Register("SelectedIndex", typeof(int), typeof(FormsMultiPage), new PropertyMetadata(0));
 
+        private IContentLoader _contentLoader;
         public IContentLoader ContentLoader
-		{
-			get { return (IContentLoader)GetValue(ContentLoaderProperty); }
-			set { SetValue(ContentLoaderProperty, value); }
-		}
+        {
+            get { return _contentLoader; }
+            set { SetAndRaise(ContentLoaderProperty, ref _contentLoader, value); }
+        }
 
-		public ObservableCollection<object> ItemsSource
+        public ObservableCollection<object> ItemsSource
 		{
 			get { return (ObservableCollection<object>)GetValue(ItemsSourceProperty); }
 			set { SetValue(ItemsSourceProperty, value); }
@@ -71,7 +72,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Controls
 
 		public FormsMultiPage()
 		{
-			SetValue(FormsMultiPage.ItemsSourceProperty, new ObservableCollection<object>());
+            // TODO:
+			//SetValue(FormsMultiPage.ItemsSourceProperty, new ObservableCollection<object>());
 		}
 
 		//public override void OnApplyTemplate()

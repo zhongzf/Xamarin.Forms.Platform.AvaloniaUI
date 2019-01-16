@@ -1,6 +1,7 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Logging.Serilog;
+using CefGlue.Avalonia;
 
 namespace AvaloniaApplication.Demo
 {
@@ -8,13 +9,15 @@ namespace AvaloniaApplication.Demo
     {
         static void Main(string[] args)
         {
-            BuildAvaloniaApp()
+            BuildAvaloniaApp(args)
                 .Start<MainWindow>();
         }
 
-        public static AppBuilder BuildAvaloniaApp()
+        public static AppBuilder BuildAvaloniaApp(string[] args)
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
+                .UseSkia()
+                .ConfigureCefGlue(args)
                 .LogToDebug();
     }
 }
