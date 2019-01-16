@@ -9,6 +9,7 @@
             <Button Text="Home" Clicked="Button_Clicked" HeightRequest="40" WidthRequest="80"></Button>
             <Button Text="Back" Clicked="Button_Back_Clicked"  HeightRequest="40" WidthRequest="80"></Button>
             <Button Text="Forward" Clicked="Button_Forward_Clicked" HeightRequest="40" WidthRequest="80"></Button>
+            <Button Text="Test" Clicked="Button_Test_Clicked" HeightRequest="40" WidthRequest="80" HorizontalOptions="End" VerticalOptions="End"></Button>
         </StackLayout>
         <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>
     </StackLayout>
