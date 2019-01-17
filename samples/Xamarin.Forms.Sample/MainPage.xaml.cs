@@ -39,7 +39,8 @@ namespace Xamarin.Forms.Sample
         private void Button_Test_Clicked(object sender, EventArgs e)
         {
             //webView.Eval("eval('alert(1);')");
-            webView.Eval("console.log(1);");
+            //webView.Eval("console.log(1);");
+            webView.Eval("$('.testdiv').html('test content - from c#');");
         }
     }
 }

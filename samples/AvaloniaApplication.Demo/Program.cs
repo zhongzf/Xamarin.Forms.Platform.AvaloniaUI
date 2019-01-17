@@ -4,6 +4,8 @@ using Avalonia;
 using Avalonia.Logging.Serilog;
 using CefGlue.Avalonia;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Xilium.CefGlue;
 
 namespace AvaloniaApplication.Demo
 {
@@ -11,17 +13,33 @@ namespace AvaloniaApplication.Demo
     {
         static void Main(string[] args)
         {
+            var startup = new Startup();
+            var serviceCollection = new ServiceCollection();
+            startup.ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            startup.Configure(serviceProvider);
+
             // TODO:
             args = args.Concat(new string[] { "disable-devtools_F12" }).ToArray();
-            BuildAvaloniaApp(args)
-                .Start<MainWindow>();
+            var appBuilder = BuildAvaloniaApp(args);
+            RegisterSchemeHandlers(serviceProvider);
+            appBuilder.Start<MainWindow>();
+        }
+
+        private static void RegisterSchemeHandlers(IServiceProvider serviceProvider)
+        {
+            var schemeHandlerFactories = serviceProvider.GetServices<CustomizedSchemeHandlerFactory>();
+            foreach(var schemeHandlerFactory in schemeHandlerFactories)
+            {
+                CefRuntime.RegisterSchemeHandlerFactory(schemeHandlerFactory.SchemeName, schemeHandlerFactory.DomainName, schemeHandlerFactory);
+            }
         }
 
         public static AppBuilder BuildAvaloniaApp(string[] args)
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .UseSkia()
-                .ConfigureCefGlue(args)
-                .LogToDebug();
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .UseSkia()
+            .ConfigureAvaloniaCefGlue(args)
+            .LogToDebug();
     }
 }
