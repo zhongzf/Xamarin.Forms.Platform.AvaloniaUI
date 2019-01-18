@@ -8,7 +8,7 @@ namespace AvaloniaApplication.Demo
 {
     public static class AvaloniaCefGlueApplicationExtensions
     {
-        public static T ConfigureAvaloniaCefGlue<T>(this T builder, string[] args) where T : AppBuilderBase<T>, new()
+        public static T ConfigureAvaloniaCefGlue<T>(this T builder, string[] args, IServiceProvider serviceProvider) where T : AppBuilderBase<T>, new()
         {
             return builder.AfterSetup((b) =>
             {
@@ -30,7 +30,7 @@ namespace AvaloniaApplication.Demo
                 }
 
                 var mainArgs = new CefMainArgs(args);
-                var cefApp = new AvaloniaCefApp();
+                var cefApp = new AvaloniaCefApp(serviceProvider);
 
                 var exitCode = CefRuntime.ExecuteProcess(mainArgs, cefApp, IntPtr.Zero);
                 if (exitCode != -1) { return; }
@@ -40,13 +40,15 @@ namespace AvaloniaApplication.Demo
 
                 var cefSettings = new CefSettings
                 {
-                    SingleProcess = true,
+
+                    //SingleProcess = true,
                     WindowlessRenderingEnabled = true,
                     MultiThreadedMessageLoop = false,
                     LogSeverity = CefLogSeverity.Disable,
                     LogFile = "cef.log",
-                    ExternalMessagePump = true
+                    //ExternalMessagePump = true
                 };
+                cefSettings.NoSandbox = true;
 
                 try
                 {

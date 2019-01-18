@@ -16,6 +16,8 @@
     <a href="http://www.bing.com" class="btn btn-primary">Bing</a>
     <a onclick="button_click();" class="btn">test button</a>
     <a id="testbutton" class="btn btn-warning">test button</a>
+    <a id="v8hanlder" class="btn btn-warning">v8hanlder</a>
+    <a id="v8hanlder2" class="btn btn-warning">v8hanlder2</a>
     <div class="testdiv">
     </div>
     <div class="testdiv2">
@@ -38,6 +40,17 @@
                 });
 
                 testPost();
+            });
+        });
+
+        $(function () {
+            $('#v8hanlder').click(function () {
+                avalonia.myFunction();
+            });
+
+            $('#v8hanlder2').click(function () {
+                var result = avalonia.myFunction('test', 1, { name: 'john', age: 30 });
+                $('.testdiv').html($('.testdiv').html() + result);
             });
         });
 

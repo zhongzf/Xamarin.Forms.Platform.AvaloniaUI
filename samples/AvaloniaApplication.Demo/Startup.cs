@@ -10,7 +10,8 @@ namespace AvaloniaApplication.Demo
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<CustomizedSchemeHandlerFactory, MethodCallSchemeHandlerFactory>();
+            //services.AddSingleton<CustomizedSchemeHandlerFactory, MethodCallSchemeHandlerFactory>();
+            //services.AddSingleton<CustomizedSchemeHandlerFactory, CefGlueResourceSchemeHandlerFactory>();
         }
 
         public void Configure(IServiceProvider serviceProvider)

@@ -21,7 +21,7 @@ namespace AvaloniaApplication.Demo
 
             // TODO:
             args = args.Concat(new string[] { "disable-devtools_F12" }).ToArray();
-            var appBuilder = BuildAvaloniaApp(args);
+            var appBuilder = BuildAvaloniaApp(args, serviceProvider);
             RegisterSchemeHandlers(serviceProvider);
             appBuilder.Start<MainWindow>();
         }
@@ -29,17 +29,17 @@ namespace AvaloniaApplication.Demo
         private static void RegisterSchemeHandlers(IServiceProvider serviceProvider)
         {
             var schemeHandlerFactories = serviceProvider.GetServices<CustomizedSchemeHandlerFactory>();
-            foreach(var schemeHandlerFactory in schemeHandlerFactories)
+            foreach (var schemeHandlerFactory in schemeHandlerFactories)
             {
                 CefRuntime.RegisterSchemeHandlerFactory(schemeHandlerFactory.SchemeName, schemeHandlerFactory.DomainName, schemeHandlerFactory);
             }
         }
 
-        public static AppBuilder BuildAvaloniaApp(string[] args)
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .UseSkia()
-            .ConfigureAvaloniaCefGlue(args)
-            .LogToDebug();
+        public static AppBuilder BuildAvaloniaApp(string[] args, IServiceProvider serviceProvider)
+                => AppBuilder.Configure<App>()
+                    .UsePlatformDetect()
+                    .UseSkia()
+                    .ConfigureAvaloniaCefGlue(args, serviceProvider)
+                    .LogToDebug();
     }
 }
