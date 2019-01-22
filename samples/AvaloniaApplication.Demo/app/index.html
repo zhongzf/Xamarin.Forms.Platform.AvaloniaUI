@@ -32,7 +32,7 @@
                 //alert('test2');
                 $('.testdiv').html('test content - 3 - 中文');
 
-                $.get('http://demo', {
+                $.get('avalonia://demo', {
                     name: "John",
                     time: "2pm"
                 }, function (data) {
@@ -71,7 +71,7 @@
             $('.testdiv2').html($('.testdiv2').html() + xmlHttp);
 
             var para = "id=testid&name=testname";
-            xmlHttp.open("GET", "http://demo", false);
+            xmlHttp.open("GET", "avalonia://demo", false);
             xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xmlHttp.send(para);
             var result = xmlHttp.status;

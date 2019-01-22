@@ -1,6 +1,6 @@
 ﻿using Xilium.CefGlue;
 
-namespace AvaloniaApplication.Demo
+namespace Xamarin.Forms.Platform.AvaloniaUI.Handlers
 {
     /// <summary>
     /// The CefGlue resource scheme handler factory.

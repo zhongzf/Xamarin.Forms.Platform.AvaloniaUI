@@ -14,10 +14,10 @@ namespace Xamarin.Forms.Sample
         {
             InitializeComponent();
 
-            webView.Source = "http://www.bing.com";
+            //webView.Source = "http://www.bing.com";
             //string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            //string startUrl = $"local://app/index.html";
-            //webView.Source = startUrl;
+            string startUrl = $"local://app/index.html";
+            webView.Source = startUrl;
         }
 
         private void Button_Clicked(object sender, EventArgs e)

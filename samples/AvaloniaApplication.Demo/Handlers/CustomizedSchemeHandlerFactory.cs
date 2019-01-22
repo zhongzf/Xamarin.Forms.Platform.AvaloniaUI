@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xilium.CefGlue;
 
-namespace AvaloniaApplication.Demo
+namespace Xamarin.Forms.Platform.AvaloniaUI.Handlers
 {
     public abstract class CustomizedSchemeHandlerFactory : CefSchemeHandlerFactory
     {

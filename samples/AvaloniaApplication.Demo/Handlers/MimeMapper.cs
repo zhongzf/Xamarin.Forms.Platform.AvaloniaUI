@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AvaloniaApplication.Demo
+namespace Xamarin.Forms.Platform.AvaloniaUI.Handlers
 {
     /// <summary>
     /// The mime mapper.

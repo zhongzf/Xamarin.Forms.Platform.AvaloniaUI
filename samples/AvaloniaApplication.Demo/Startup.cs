@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms.Platform.AvaloniaUI.Handlers;
 using Xilium.CefGlue;
 
 namespace AvaloniaApplication.Demo
@@ -10,8 +11,8 @@ namespace AvaloniaApplication.Demo
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<CustomizedSchemeHandlerFactory, MethodCallSchemeHandlerFactory>();
-            //services.AddSingleton<CustomizedSchemeHandlerFactory, CefGlueResourceSchemeHandlerFactory>();
+            services.AddSingleton<CustomizedSchemeHandlerFactory, MethodCallSchemeHandlerFactory>();
+            services.AddSingleton<CustomizedSchemeHandlerFactory, CefGlueResourceSchemeHandlerFactory>();
         }
 
         public void Configure(IServiceProvider serviceProvider)

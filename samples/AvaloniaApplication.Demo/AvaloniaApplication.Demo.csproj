@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <!--<TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>-->
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
@@ -19,9 +19,9 @@
     <PackageReference Include="Avalonia" Version="0.7.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Raising.CefGlue" Version="3.3578.1860" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CefGlue.Core\CefGlue.Avalonia\CefGlue.Avalonia.csproj" />
     <ProjectReference Include="..\..\Xamarin.Forms.Platform.AvaloniaUI\Xamarin.Forms.Platform.AvaloniaUI.csproj" />
     <ProjectReference Include="..\Xamarin.Forms.Sample\Xamarin.Forms.Sample.csproj" />
     <ProjectReference Include="..\Xamarin.Froms\Xamarin.Forms.Controls\Xamarin.Forms.Controls.csproj" />

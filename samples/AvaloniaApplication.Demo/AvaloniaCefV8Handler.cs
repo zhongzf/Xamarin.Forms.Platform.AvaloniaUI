@@ -9,7 +9,7 @@ namespace AvaloniaApplication.Demo
     {
         protected override bool Execute(string name, CefV8Value obj, CefV8Value[] arguments, out CefV8Value returnValue, out string exception)
         {
-            returnValue = CefV8Value.CreateString("test result");
+            returnValue = CefV8Value.CreateString("test result from C#");
             exception = null;
             var arg0 = arguments[0].GetStringValue();
             var arg1 = arguments[1].GetIntValue();

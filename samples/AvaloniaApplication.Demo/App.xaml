@@ -5,7 +5,7 @@
     <Application.Styles>
         <StyleInclude Source="resm:Avalonia.Themes.Default.DefaultTheme.xaml?assembly=Avalonia.Themes.Default"/>
         <StyleInclude Source="resm:Avalonia.Themes.Default.Accents.BaseLight.xaml?assembly=Avalonia.Themes.Default"/>
-        <StyleInclude Source="resm:CefGlue.Avalonia.AvaloniaCefBrowser.xaml?assembly=CefGlue.Avalonia"/>
+        <StyleInclude Source="resm:CefGlue.Avalonia.AvaloniaCefBrowser.xaml?assembly=Raising.CefGlue.Avalonia"/>
     </Application.Styles>
 
     <Application.Resources>
