@@ -36,6 +36,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
                     SetNativeControl(new AvaloniaCefBrowser());
                     Control.LoadStart += Control_LoadStart;
                     Control.LoadEnd += Control_LoadEnd;
+                    Control.BrowserCreated += Control_BrowserCreated;
                 }
 
                 // Update control property 
@@ -50,6 +51,12 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             }
 
             base.OnElementChanged(e);
+        }
+
+
+        private void Control_BrowserCreated(object sender, BrowserCreatedEventArgs e)
+        {
+            Platform.OnBrowserCreated(sender, e);
         }
 
         private void Control_LoadStart(object sender, LoadStartEventArgs e)
@@ -205,6 +212,7 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
             {
                 if (Control != null)
                 {
+                    Control.BrowserCreated -= Control_BrowserCreated;
                     Control.LoadStart -= Control_LoadStart;
                     Control.LoadEnd -= Control_LoadEnd;
                     Control.StartUrl = null;

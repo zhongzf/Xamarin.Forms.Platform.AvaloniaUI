@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefGlue.Avalonia;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,31 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 {
     public class Platform : BindableObject, INavigation
     {
+        public static event EventHandler WebKitInitialized;
+        public static void OnWebKitInitialized(object sender, EventArgs e) => WebKitInitialized?.Invoke(sender, e);
+
+        public static event RegisterCustomSchemesHandler RegisterCustomSchemes;
+        public static void OnRegisterCustomSchemes(object sender, RegisterCustomSchemesEventArgs e) => RegisterCustomSchemes?.Invoke(sender, e);
+
+        public static event BrowserCreatedHandler BrowserCreated;
+        public static void OnBrowserCreated(object sender, BrowserCreatedEventArgs e) => BrowserCreated?.Invoke(sender, e);
+
+        static Platform()
+        {
+            AvaloniaCefBrowser.WebKitInitialized += AvaloniaCefBrowser_WebKitInitialized;
+            AvaloniaCefBrowser.RegisterCustomSchemes += AvaloniaCefBrowser_RegisterCustomSchemes;
+        }
+
+        private static void AvaloniaCefBrowser_WebKitInitialized(object sender, EventArgs e)
+        {
+            OnWebKitInitialized(sender, e);
+        }
+
+        private static void AvaloniaCefBrowser_RegisterCustomSchemes(object sender, RegisterCustomSchemesEventArgs e)
+        {
+            OnRegisterCustomSchemes(sender, e);
+        }
+
         readonly FormsApplicationPage _page;
         Page Page { get; set; }
 
