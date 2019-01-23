@@ -22,6 +22,8 @@
     </div>
     <div class="testdiv2">
     </div>
+    <div class="testdiv3">
+    </div>
     <script>
         function button_click() {
             alert('test');
@@ -36,7 +38,7 @@
                     name: "John",
                     time: "2pm"
                 }, function (data) {
-                    $('.testdiv2').html(data);
+                    $('.testdiv3').html(JSON.stringify(data));
                 });
 
                 testPost();

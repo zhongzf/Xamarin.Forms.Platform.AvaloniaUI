@@ -70,7 +70,7 @@ namespace AvaloniaApplication.Demo
                 bool isStandardScheme = IsStandardScheme(item.SchemeName);
                 if (!isStandardScheme)
                 {
-                    registrar.AddCustomScheme(item.SchemeName, true, false, false, false, true, false);
+                    registrar.AddCustomScheme(item.SchemeName, true, false, false, false, true);
                 }
             }
         }

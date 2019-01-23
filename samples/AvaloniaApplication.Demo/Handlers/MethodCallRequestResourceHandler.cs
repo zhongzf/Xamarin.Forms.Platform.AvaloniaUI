@@ -11,6 +11,26 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Handlers
 {
     public class MethodCallRequestResourceHandler : CefResourceHandler
     {
+        /// <summary>
+        /// The file read in bytes.
+        /// </summary>
+        private byte[] mFileBytes;
+
+        /// <summary>
+        /// The mime type.
+        /// </summary>
+        private string mMime;
+
+        /// <summary>
+        /// The completed flag.
+        /// </summary>
+        private bool mCompleted;
+
+        /// <summary>
+        /// The total bytes read.
+        /// </summary>
+        private int mTotalBytesRead;
+
         protected override void Cancel()
         {
         }
@@ -52,21 +72,88 @@ namespace Xamarin.Forms.Platform.AvaloniaUI.Handlers
 
         protected override bool ProcessRequest(CefRequest request, CefCallback callback)
         {
+            var u = new Uri(request.Url);
+            var postData = request.PostData;
+            if (postData != null)
+            {
+                var elements = postData.GetElements();
+                if (elements?.Length > 0 && elements[0].ElementType == CefPostDataElementType.Bytes)
+                {
+                    var element = elements[0];
+                    var bytes = element.GetBytes();
+                    var postValue = Encoding.UTF8.GetString(bytes);
+                    Console.WriteLine(postValue);
+                }
+                Console.WriteLine(elements?.Length);
+            }
+            var file = u.Authority + u.AbsolutePath;
+
+            mTotalBytesRead = 0;
+            mFileBytes = null;
+            mCompleted = false;
+
             Task.Run(() =>
             {
                 using (callback)
                 {
-                    callback.Continue();
+                    try
+                    {
+                        mFileBytes = Encoding.UTF8.GetBytes("{ \"name\" : \"test\",  \"age\" : 10 }");
+                        mMime = "application/json";
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.WriteLine(exception);
+                    }
+                    finally
+                    {
+                        callback.Continue();
+                    }
                 }
             });
+
             return true;
         }
 
         protected override bool ReadResponse(Stream response, int bytesToRead, out int bytesRead, CefCallback callback)
         {
-            var bytes = Encoding.UTF8.GetBytes("{ \"name\": \"C#\" }");
-            response.Write(bytes, 0, bytes.Length);
-            bytesRead = bytes.Length;
+            int currBytesRead = 0;
+
+            try
+            {
+                if (mCompleted)
+                {
+                    bytesRead = 0;
+                    mTotalBytesRead = 0;
+                    mFileBytes = null;
+                    return false;
+                }
+                else
+                {
+                    if (mFileBytes != null)
+                    {
+                        currBytesRead = Math.Min(mFileBytes.Length - mTotalBytesRead, bytesToRead);
+                        response.Write(mFileBytes, mTotalBytesRead, currBytesRead);
+                        mTotalBytesRead += currBytesRead;
+
+                        if (mTotalBytesRead >= mFileBytes.Length)
+                        {
+                            mCompleted = true;
+                        }
+                    }
+                    else
+                    {
+                        bytesRead = 0;
+                        mCompleted = true;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+            }
+
+            bytesRead = currBytesRead;
             return true;
         }
     }

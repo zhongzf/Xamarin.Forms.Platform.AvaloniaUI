@@ -19,7 +19,8 @@
     <PackageReference Include="Avalonia" Version="0.7.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Raising.CefGlue" Version="3.3578.1860" />
+    <PackageReference Include="VitalElement.CefGlue.Core" Version="0.9.0-build32-alpha" />
+    <PackageReference Include="VitalElement.CefGlue.Core.Win-x64" Version="0.9.0-build32-alpha" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.Platform.AvaloniaUI\Xamarin.Forms.Platform.AvaloniaUI.csproj" />
