@@ -11,7 +11,11 @@
             <Button Text="Forward" Clicked="Button_Forward_Clicked" HeightRequest="40" WidthRequest="80"></Button>
             <Button Text="Test" Clicked="Button_Test_Clicked" HeightRequest="40" WidthRequest="80" HorizontalOptions="End" VerticalOptions="End"></Button>
         </StackLayout>
-        <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>
-    </StackLayout>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                     AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional"></WebView>
+            <Button Text="Go" AbsoluteLayout.LayoutBounds="10,10,40,40"></Button>
 
+        </AbsoluteLayout>
+    </StackLayout>
 </ContentPage>

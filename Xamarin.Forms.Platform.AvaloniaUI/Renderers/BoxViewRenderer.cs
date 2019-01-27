@@ -16,7 +16,8 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 			{
 				if (Control == null) // Construct and SetNativeControl and suscribe control event
 				{
-					ARectangle rectangle = new ARectangle();
+                    // TODO: Rectangle is not a TemplatedControl.
+                    ARectangle rectangle = new ARectangle();
 
 					_border = new Border();
 

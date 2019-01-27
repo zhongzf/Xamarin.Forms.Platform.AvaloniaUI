@@ -218,7 +218,11 @@ namespace Xamarin.Forms.Platform.AvaloniaUI
 
         protected virtual void UpdateBackground()
         {
-            _AControl.Background = Element.BackgroundColor.ToBrush();
+            // TODO:
+            if (_AControl != null)
+            {
+                _AControl.Background = Element.BackgroundColor.ToBrush();
+            }
         }
 
         protected virtual void UpdateHeight()
